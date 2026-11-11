@@ -1,3 +1,8 @@
+// Automatically handle closing the modal when clicked
+document.getElementById('close-modal').addEventListener('click', function() {
+    document.getElementById('campaign-modal').style.display = 'none';
+});
+
 // ========== STORAGE ==========
 function getRegistrations() {
     try {

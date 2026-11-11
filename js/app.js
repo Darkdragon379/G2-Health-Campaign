@@ -160,7 +160,9 @@ function generateToken() {
     const gender = document.getElementById('gender').value;
     const condition = document.getElementById('healthCondition').value.trim();
     const location = document.getElementById('campLocation').value;
-    const timeSlot = document.getElementById('timeSlot') ? document.getElementById('timeSlot').value : "09:00 AM - 11:00 AM";
+    
+    const timeSlotSelect = document.getElementById('timeSlot');
+    const timeSlot = timeSlotSelect ? timeSlotSelect.value : "";
 
     if (!name) {
         alert("Please enter your full name");
@@ -172,6 +174,11 @@ function generateToken() {
     }
     if (!condition) {
         alert("Please describe your health condition");
+        return;
+    }
+    // STRICT TIME SLOT VALIDATION: Prevents submitting without a valid slot
+    if (!timeSlot || timeSlot === "") {
+        alert("Please select a valid preferred time slot.");
         return;
     }
 
@@ -329,7 +336,7 @@ const demoPatients = [
         "age": 38, 
         "condition": "Skin Issue", 
         "history": "Recurring skin irritation (fictional history)", 
-        "medications": "Previous prescription on file; no dosage shown", 
+        "medications": "Existing prescription on file; no dosage shown", 
         "tests": "Sample dermatology notes: available", 
         "doctor": "Dr. Ayush Dehury (Dermatologist)", 
         "location": "Kolkata - Salt Lake",

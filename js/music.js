@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <span style="display: flex; align-items: center; gap: 6px;">🎷 <strong>Velvet Hours</strong></span>
         <button id="musicToggleBtn" onclick="toggleMusic()" style="background: #4f46e5; border: none; color: white; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: background 0.2s;">Play</button>
         <audio id="ambientAudio" loop>
-            <source src="before-the-city-wakes.mp3" type="audio/mp3">
+            <source src="Before-the-City-Wakes.mp3" type="audio/mp3">
         </audio>
     `;
 

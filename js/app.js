@@ -227,6 +227,10 @@ function generateToken() {
         counter = "Counter 5 (Dermatology)";
         doctor = "Dr. Ayush Dehury (Dermatologist)";
     }
+    else if (conditionLower.includes("heart") || conditionLower.includes("cardiac") || conditionLower.includes("chest")) {
+        counter = "Counter 7 (Cardiology)";
+        doctor = "Dr. Harshit Singh (Cardiologist)";
+    }
     else {
         counter = "Counter 1 (General Checkup)";
         doctor = "Dr. Advait Updhyay (General Physician)";
@@ -355,6 +359,19 @@ const demoPatients = [
         "location": "Pune - Shivaji Nagar",
         "campDate": "17 Dec 2026",
         "sessionType": "Morning Session"
+    },
+    {
+        "token": "DEMO-0007", 
+        "name": "Aditya Roy", 
+        "age": 45, 
+        "condition": "Heart Issues", 
+        "history": "Mild palpitations (fictional history)", 
+        "medications": "None listed", 
+        "tests": "Sample ECG report: available", 
+        "doctor": "Dr. Harshit Singh (Cardiologist)", 
+        "location": "Jalandhar - Punjab",
+        "campDate": "10 Dec 2026",
+        "sessionType": "Full Day Session"
     }
 ];
 

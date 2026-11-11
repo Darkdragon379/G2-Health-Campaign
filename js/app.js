@@ -57,6 +57,63 @@ function goToRegistration() {
         return;
     }
     showSection('registration');
+    
+    // Automatically trigger time slot greying/enabling based on selected location
+    updateAvailableTimeSlots();
+}
+
+// ========== DYNAMIC TIME SLOT GREYING/ENABLING LOGIC ==========
+document.addEventListener('DOMContentLoaded', function() {
+    const locationSelect = document.getElementById('campLocation');
+    if (locationSelect) {
+        locationSelect.addEventListener('change', updateAvailableTimeSlots);
+    }
+});
+
+function updateAvailableTimeSlots() {
+    const location = document.getElementById('campLocation').value;
+    const timeSlotSelect = document.getElementById('timeSlot');
+    if (!timeSlotSelect) return;
+
+    const options = timeSlotSelect.options;
+
+    // Reset all options first
+    for (let i = 0; i < options.length; i++) {
+        options[i].disabled = false;
+        options[i].style.color = "";
+        options[i].text = options[i].text.replace(" (Not Available for this Venue)", "");
+    }
+
+    if (!location) return;
+
+    // If it's a Morning Session venue, grey out/disable evening slots
+    if (location.includes("Central Park") || location.includes("Marine Drive") || location.includes("Cubbon Park") || location.includes("Necklace Road") || location.includes("Marina Beach") || location.includes("Maidan") || location.includes("Shivaji Nagar")) {
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].classList.contains('slot-evening')) {
+                options[i].disabled = true;
+                options[i].style.color = "#777";
+                options[i].text += " (Not Available for this Venue)";
+            }
+        }
+        // Auto-select first available morning slot if current selection is invalid
+        if (timeSlotSelect.value.includes("02:00") || timeSlotSelect.value.includes("04:00") || !timeSlotSelect.value) {
+            timeSlotSelect.value = "09:00 AM - 11:00 AM";
+        }
+    } 
+    // If it's an Evening Session venue, grey out/disable morning slots
+    else if (location.includes("Connaught Place") || location.includes("Bandra") || location.includes("MG Road") || location.includes("Gachibowli") || location.includes("T Nagar") || location.includes("Salt Lake") || location.includes("Hinjewadi")) {
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].classList.contains('slot-morning')) {
+                options[i].disabled = true;
+                options[i].style.color = "#777";
+                options[i].text += " (Not Available for this Venue)";
+            }
+        }
+        // Auto-select first available evening slot if current selection is invalid
+        if (timeSlotSelect.value.includes("09:00") || timeSlotSelect.value.includes("11:00") || !timeSlotSelect.value) {
+            timeSlotSelect.value = "02:00 PM - 04:00 PM";
+        }
+    }
 }
 
 // ========== LOCATION & DUAL-VENUE SPLIT-DAY LOGIC ==========

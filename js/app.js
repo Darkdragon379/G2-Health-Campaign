@@ -1,4 +1,4 @@
-// ========== CORE APP LOGIC WITH EXPANDED DEMO DATA & ADMIN AUTH ==========
+// ========== CORE APP LOGIC WITH DYNAMIC TIME SLOTS, DEMO DATA & ADMIN AUTH ==========
 
 document.addEventListener('DOMContentLoaded', function() {
     // Modal Overlay Handling
@@ -15,10 +15,48 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Dynamic Time Slot Listener on Location Change
+    const campLocationSelect = document.getElementById('campLocation');
+    if (campLocationSelect) {
+        campLocationSelect.addEventListener('change', updateAvailableTimeSlots);
+    }
+
     // Initialize Default Demo Registrations if localStorage is empty
     initializeDemoData();
     updateAdminStats();
 });
+
+// Dynamic Time Slot Greying/Enabling Logic based on Selected Location Session
+function updateAvailableTimeSlots() {
+    const location = document.getElementById('campLocation').value;
+    const timeSlotSelect = document.getElementById('timeSlot');
+    if (!timeSlotSelect) return;
+
+    const options = timeSlotSelect.options;
+    const isMorning = location.includes('Morning Session');
+    const isEvening = location.includes('Evening Session');
+
+    for (let i = 0; i < options.length; i++) {
+        const opt = options[i];
+        if (opt.value === "") continue;
+
+        const isMorningSlot = opt.classList.contains('slot-morning');
+        const isEveningSlot = opt.classList.contains('slot-evening');
+
+        if (isMorning) {
+            opt.disabled = !isMorningSlot;
+            opt.style.color = isMorningSlot ? '#ffffff' : '#64748b';
+        } else if (isEvening) {
+            opt.disabled = !isEveningSlot;
+            opt.style.color = isEveningSlot ? '#ffffff' : '#64748b';
+        } else {
+            // Full Day (e.g., Jalandhar) or default: all slots enabled
+            opt.disabled = false;
+            opt.style.color = '#ffffff';
+        }
+    }
+    timeSlotSelect.selectedIndex = 0; // Reset slot selection when location changes
+}
 
 // Preload Expanded Demo Registrations
 function initializeDemoData() {
@@ -120,6 +158,7 @@ function goToRegistration() {
         alert('Please select a campaign location and session before continuing.');
         return;
     }
+    updateAvailableTimeSlots();
     showSection('registration');
 }
 
@@ -141,7 +180,7 @@ function generateToken() {
     const randomNum = Math.floor(1000 + Math.random() * 9000);
     const token = 'G2-' + randomNum;
 
-    // Determine Assigned Doctor based on Health Condition
+    // Specialist mapping
     let assignedDoctor = "Dr. Divyansh Sharma (Advising Doctor)";
     if (healthCondition === "Eye Problem") {
         assignedDoctor = "Dr. Dhruv Chaturvedi (Eye Specialist)";
@@ -167,7 +206,6 @@ function generateToken() {
     document.getElementById('counterInfo').innerHTML = `<strong>Condition / Category:</strong> ${healthCondition}`;
     document.getElementById('doctorInfo').innerHTML = `<strong>Assigned Specialist:</strong> ${assignedDoctor}`;
 
-    // Save registration data including assigned doctor
     saveRegistrationData({
         token,
         fullName,
@@ -203,7 +241,7 @@ function resetForm() {
     showSection('welcome');
 }
 
-// Secure Admin Panel with Password Verification
+// Secure Admin Panel
 function openAdmin() {
     const password = prompt("Enter Admin Password:");
     if (password === "9cboys") {

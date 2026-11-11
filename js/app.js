@@ -1,6 +1,19 @@
 // Automatically handle closing the modal when clicked
-document.getElementById('close-modal').addEventListener('click', function() {
-    document.getElementById('campaign-modal').style.display = 'none';
+document.addEventListener('DOMContentLoaded', function() {
+    const closeModalBtn = document.getElementById('close-modal');
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', function() {
+            const modal = document.getElementById('campaign-modal');
+            if (modal) modal.style.display = 'none';
+        });
+    }
+
+    const locationSelect = document.getElementById('campLocation');
+    if (locationSelect) {
+        locationSelect.addEventListener('change', updateAvailableTimeSlots);
+    }
+
+    updateAdminStats();
 });
 
 // ========== STORAGE ==========
@@ -26,7 +39,7 @@ function clearAllRegistrations() {
     }
 }
 
-// ========== NAVIGATION ==========
+// ========== NAVIGATION & MOBILE MENU ==========
 const ADMIN_PASSWORD = "Lumina Nexus77";
 
 function openAdmin() {
@@ -42,11 +55,21 @@ function openAdmin() {
 
 function showSection(id) {
     document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0, 0);
+    const target = document.getElementById(id);
+    if (target) {
+        target.classList.add('active');
+        window.scrollTo(0, 0);
+    }
 
     if (id === 'admin') {
         renderAdmin();
+    }
+}
+
+function toggleMobileMenu() {
+    const nav = document.getElementById('navLinks');
+    if (nav) {
+        nav.classList.toggle('active');
     }
 }
 
@@ -57,24 +80,16 @@ function goToRegistration() {
         return;
     }
     showSection('registration');
-    
-    // Automatically trigger time slot greying/enabling based on selected location
     updateAvailableTimeSlots();
 }
 
 // ========== DYNAMIC TIME SLOT GREYING/ENABLING LOGIC ==========
-document.addEventListener('DOMContentLoaded', function() {
-    const locationSelect = document.getElementById('campLocation');
-    if (locationSelect) {
-        locationSelect.addEventListener('change', updateAvailableTimeSlots);
-    }
-});
-
 function updateAvailableTimeSlots() {
-    const location = document.getElementById('campLocation').value;
+    const locationSelect = document.getElementById('campLocation');
     const timeSlotSelect = document.getElementById('timeSlot');
-    if (!timeSlotSelect) return;
+    if (!locationSelect || !timeSlotSelect) return;
 
+    const location = locationSelect.value;
     const options = timeSlotSelect.options;
 
     // Reset all options first
@@ -95,7 +110,6 @@ function updateAvailableTimeSlots() {
                 options[i].text += " (Not Available for this Venue)";
             }
         }
-        // Auto-select first available morning slot if current selection is invalid
         if (timeSlotSelect.value.includes("02:00") || timeSlotSelect.value.includes("04:00") || !timeSlotSelect.value) {
             timeSlotSelect.value = "09:00 AM - 11:00 AM";
         }
@@ -109,7 +123,6 @@ function updateAvailableTimeSlots() {
                 options[i].text += " (Not Available for this Venue)";
             }
         }
-        // Auto-select first available evening slot if current selection is invalid
         if (timeSlotSelect.value.includes("09:00") || timeSlotSelect.value.includes("11:00") || !timeSlotSelect.value) {
             timeSlotSelect.value = "02:00 PM - 04:00 PM";
         }
@@ -120,32 +133,18 @@ function updateAvailableTimeSlots() {
 function getCampSchedule(location) {
     const scheduleMap = {
         "Jalandhar - Punjab": { date: "10 Dec 2026", session: "Full Day Session" },
-        
-        // Delhi Split
         "Delhi - Central Park": { date: "11 Dec 2026", session: "Morning Session" },
         "Delhi - Connaught Place": { date: "11 Dec 2026", session: "Evening Session" },
-        
-        // Mumbai Split
         "Mumbai - Marine Drive": { date: "12 Dec 2026", session: "Morning Session" },
         "Mumbai - Bandra": { date: "12 Dec 2026", session: "Evening Session" },
-        
-        // Bangalore Split
         "Bangalore - Cubbon Park": { date: "13 Dec 2026", session: "Morning Session" },
         "Bangalore - MG Road": { date: "13 Dec 2026", session: "Evening Session" },
-        
-        // Hyderabad Split
         "Hyderabad - Necklace Road": { date: "14 Dec 2026", session: "Morning Session" },
         "Hyderabad - Gachibowli": { date: "14 Dec 2026", session: "Evening Session" },
-        
-        // Chennai Split
         "Chennai - Marina Beach": { date: "15 Dec 2026", session: "Morning Session" },
         "Chennai - T Nagar": { date: "15 Dec 2026", session: "Evening Session" },
-        
-        // Kolkata Split
         "Kolkata - Maidan": { date: "16 Dec 2026", session: "Morning Session" },
         "Kolkata - Salt Lake": { date: "16 Dec 2026", session: "Evening Session" },
-        
-        // Pune Split
         "Pune - Shivaji Nagar": { date: "17 Dec 2026", session: "Morning Session" },
         "Pune - Hinjewadi": { date: "17 Dec 2026", session: "Evening Session" }
     };
@@ -176,13 +175,11 @@ function generateToken() {
         alert("Please describe your health condition");
         return;
     }
-    // STRICT TIME SLOT VALIDATION: Prevents submitting without a valid slot
     if (!timeSlot || timeSlot === "") {
         alert("Please select a valid preferred time slot.");
         return;
     }
 
-    // SMART VALIDATION: Enforce split-day rules for dual venues!
     const isMorningSlot = timeSlot.includes("09:00") || timeSlot.includes("11:00");
     const isEveningSlot = timeSlot.includes("02:00") || timeSlot.includes("04:00");
 
@@ -202,7 +199,6 @@ function generateToken() {
     let counter = "";
     let doctor = "";
 
-    // Explicit mapping for conditions & doctors
     if (conditionLower.includes("diabetes") || conditionLower.includes("sugar") || conditionLower.includes("endocrine")) {
         counter = "Counter 6 (Endocrine & Nutrition)";
         doctor = "Dr. Arnav Chhetri (Nutrition & Metabolic Specialist)";
@@ -236,7 +232,6 @@ function generateToken() {
         doctor = "Dr. Advait Updhyay (General Physician)";
     }
 
-    // Save with Session Metadata
     saveRegistration({
         id: Date.now(),
         token,
@@ -254,7 +249,6 @@ function generateToken() {
         time: new Date().toLocaleString()
     });
 
-    // Show
     document.getElementById('displayName').textContent = name;
     document.getElementById('tokenDisplay').textContent = token;
     document.getElementById('displayLocation').textContent = `${location} (${campInfo.date})`;
@@ -381,7 +375,9 @@ function escapeText(value) {
 
 function renderAdmin() {
     const local = getRegistrations();
-    document.getElementById('totalCount').textContent = (207339).toLocaleString('en-IN');
+    const totalCountEl = document.getElementById('totalCount');
+    if (totalCountEl) totalCountEl.textContent = (207339).toLocaleString('en-IN');
+    
     const demoFields = ['token', 'name', 'age', 'condition', 'doctor', 'location', 'campDate', 'sessionType'];
     let html = '<h2 style="margin-bottom:12px;">Sample Patient Records</h2><p style="margin-bottom:16px; opacity:0.7;">Showing demo records with split-session mapping</p><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Token</th><th>Name</th><th>Age</th><th>Condition</th><th>Assigned Doctor</th><th>Location</th><th>Date</th><th>Session</th></tr></thead><tbody>';
     demoPatients.forEach(r => {
@@ -396,5 +392,15 @@ function renderAdmin() {
         });
         html += '</tbody></table></div>';
     }
-    document.getElementById('adminContent').innerHTML = html;
+    const adminContentEl = document.getElementById('adminContent');
+    if (adminContentEl) adminContentEl.innerHTML = html;
+}
+
+function updateAdminStats() {
+    let registrations = getRegistrations();
+    const baseCount = 207339 + registrations.length;
+    const totalCountEl = document.getElementById('totalCount');
+    if (totalCountEl) {
+        totalCountEl.textContent = baseCount.toLocaleString();
+    }
 }

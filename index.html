@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9C Boys G2 Health Campaign</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="watermark">@9C Boys G2</div>
+
+    <div class="container">
+        <div class="card">
+
+            <!-- WELCOME -->
+            <div id="welcome" class="section active">
+                <div class="step-indicator">
+                    <div class="step active">1. Welcome</div>
+                    <div class="step">2. Location</div>
+                    <div class="step">3. Register</div>
+                    <div class="step">4. Token</div>
+                </div>
+
+                <h1>9C Boys G2<br>Health Campaign</h1>
+                <p class="subtitle">Your health is our priority.<br>Free check-ups • Expert doctors • Instant guidance</p>
+                <p class="branding">Design & Concept Powered exclusively by <strong>@9C Boys G2</strong></p>
+
+                <section class="doctors-panel" aria-labelledby="senior-doctor-title">
+                    <h2 id="senior-doctor-title">Senior &amp; Advising Doctor</h2>
+                    <div class="doctor-card">
+                        <strong>Dr. Divyansh Sharma</strong>
+                        <span>Senior and Advising Doctor</span>
+                    </div>
+                </section>
+
+                <section class="doctors-panel" aria-labelledby="participating-doctors-title">
+                    <h2 id="participating-doctors-title">Participating Doctors</h2>
+                    <p class="doctors-intro">Meet the medical professionals supporting this health campaign</p>
+                    <div class="doctors-list">
+                        <div class="doctor-card"><strong>Dr. Advait Updhyay</strong><span>General Physician</span></div>
+                        <div class="doctor-card"><strong>Dr. Dhruv Chaturvedi</strong><span>Eye Specialist</span></div>
+                        <div class="doctor-card"><strong>Dr. Arnav Sharma</strong><span>Orthopedic Specialist</span></div>
+                        <div class="doctor-card"><strong>Dr. Arnav Chhetri</strong><span>Dietologist</span></div>
+                        <div class="doctor-card"><strong>Dr. Ayush Dehury</strong><span>Dermatologist</span></div>
+                    </div>
+                </section>
+                
+                <button onclick="showSection('location')">Start Registration →</button>
+
+                <div class="admin-link">
+                    <a href="#" onclick="openAdmin(); return false;">Admin Panel</a>
+                </div>
+
+                <section class="doctors-panel" aria-labelledby="bring-items-title">
+                    <h2 id="bring-items-title">What to Bring</h2>
+                    <p class="doctors-intro">Please bring the following items when visiting the health camp:</p>
+                    <ul style="text-align: left; padding-left: 22px; line-height: 1.8; color: #ddd;">
+                        <li><strong>Past medical records</strong> — previous reports, test results, and relevant medical documents.</li>
+                        <li><strong>ID proof</strong> — a valid identification document.</li>
+                        <li><strong>Regular prescription list</strong> — your current prescriptions or a list of medicines you take regularly.</li>
+                    </ul>
+                </section>
+
+                <footer>Local Storage Only • Secure & Private</footer>
+            </div>
+
+            <!-- LOCATION -->
+            <div id="location" class="section">
+                <div class="step-indicator">
+                    <div class="step completed">1. Welcome</div>
+                    <div class="step active">2. Location</div>
+                    <div class="step">3. Register</div>
+                    <div class="step">4. Token</div>
+                </div>
+
+                <h1>Select Location</h1>
+                <p class="subtitle">Choose the nearest campaign camp</p>
+
+                <label>Campaign Location</label>
+                <select id="campLocation">
+                    <option value="">-- Select Location --</option>
+                    <option value="Jalandhar - Punjab">Jalandhar - Punjab</option>
+                    <option value="Delhi - Central Park">Delhi - Central Park</option>
+                    <option value="Delhi - Connaught Place">Delhi - Connaught Place</option>
+                    <option value="Mumbai - Marine Drive">Mumbai - Marine Drive</option>
+                    <option value="Mumbai - Bandra">Mumbai - Bandra</option>
+                    <option value="Bangalore - Cubbon Park">Bangalore - Cubbon Park</option>
+                    <option value="Bangalore - MG Road">Bangalore - MG Road</option>
+                    <option value="Hyderabad - Necklace Road">Hyderabad - Necklace Road</option>
+                    <option value="Hyderabad - Gachibowli">Hyderabad - Gachibowli</option>
+                    <option value="Chennai - Marina Beach">Chennai - Marina Beach</option>
+                    <option value="Chennai - T Nagar">Chennai - T Nagar</option>
+                    <option value="Kolkata - Maidan">Kolkata - Maidan</option>
+                    <option value="Kolkata - Salt Lake">Kolkata - Salt Lake</option>
+                    <option value="Pune - Shivaji Nagar">Pune - Shivaji Nagar</option>
+                    <option value="Pune - Hinjewadi">Pune - Hinjewadi</option>
+                    <option value="Ahmedabad - Sabarmati Riverfront">Ahmedabad - Sabarmati Riverfront</option>
+                    <option value="Jaipur - Albert Hall">Jaipur - Albert Hall</option>
+                    <option value="Lucknow - Hazratganj">Lucknow - Hazratganj</option>
+                    <option value="Chandigarh - Sector 17">Chandigarh - Sector 17</option>
+                    <option value="Indore - Rajwada">Indore - Rajwada</option>
+                    <option value="Bhopal - Lake View">Bhopal - Lake View</option>
+                    <option value="Patna - Gandhi Maidan">Patna - Gandhi Maidan</option>
+                    <option value="Kochi - Marine Drive">Kochi - Marine Drive</option>
+                    <option value="Coimbatore - Race Course">Coimbatore - Race Course</option>
+                    <option value="Surat - Gopi Talav">Surat - Gopi Talav</option>
+                    <option value="Nagpur - Sitabuldi">Nagpur - Sitabuldi</option>
+                    <option value="Visakhapatnam - Beach Road">Visakhapatnam - Beach Road</option>
+                    <option value="Amritsar - Golden Temple Area">Amritsar - Golden Temple Area</option>
+                    <option value="Ludhiana - Model Town">Ludhiana - Model Town</option>
+                </select>
+
+                <div class="nav-buttons">
+                    <button class="btn-secondary" onclick="showSection('welcome')">← Back</button>
+                    <button onclick="goToRegistration()">Continue →</button>
+                </div>
+            </div>
+
+            <!-- REGISTRATION -->
+            <div id="registration" class="section">
+                <div class="step-indicator">
+                    <div class="step completed">1. Welcome</div>
+                    <div class="step completed">2. Location</div>
+                    <div class="step active">3. Register</div>
+                    <div class="step">4. Token</div>
+                </div>
+
+                <h1>Registration</h1>
+                <p class="subtitle">Please fill your details carefully</p>
+
+                <label>Full Name *</label>
+                <input type="text" id="fullName" placeholder="Enter your full name">
+
+                <label>Age</label>
+                <input type="number" id="age" placeholder="Your age" min="1" max="120">
+
+                <label>Phone Number</label>
+                <input type="tel" id="phone" placeholder="10-digit mobile number">
+
+                <label>Gender</label>
+                <select id="gender">
+                    <option value="">Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+
+                <label for="healthCondition">Health Condition / Symptoms *</label>
+                <select id="healthCondition" name="healthCondition">
+                    <option value="" disabled selected>Select your condition...</option>
+                    <option value="Eye Problem">Eye Problem</option>
+                    <option value="General Fever">General Fever</option>
+                    <option value="Diabetes">Diabetes Checkup</option>
+                    <option value="Orthopedic">Joint/Bone Pain</option>
+                    <option value="Diet">Diet/Nutrition Consultation</option>
+                    <option value="Skin">Skin Issue</option>
+                </select>
+
+                <div class="nav-buttons">
+                    <button class="btn-secondary" onclick="showSection('location')">← Back</button>
+                    <button onclick="generateToken()">Generate Token & Get Guidance</button>
+                </div>
+            </div>
+
+            <!-- RESULT -->
+            <div id="result" class="section">
+                <div class="step-indicator">
+                    <div class="step completed">1. Welcome</div>
+                    <div class="step completed">2. Location</div>
+                    <div class="step completed">3. Register</div>
+                    <div class="step active">4. Token</div>
+                </div>
+
+                <div class="result-box" id="resultBox">
+                    <h2>Registration Successful!</h2>
+                    <p>Dear <strong id="displayName"></strong>,</p>
+                    <p style="margin-top:8px;">Your unique Token is:</p>
+                    <div class="token" id="tokenDisplay"></div>
+                    
+                    <div class="doctor-info">
+                        <p><strong>Selected Location:</strong> <span id="displayLocation"></span></p>
+                        <p id="counterInfo"></p>
+                        <p id="doctorInfo"></p>
+                    </div>
+
+                    <p style="margin-top:18px; color: rgba(255,255,255,0.55); font-size:0.95rem;">
+                        Please show this token at the entrance. Thank you for choosing 9C Boys G2 Health Campaign!
+                    </p>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn-secondary" onclick="window.print()">🖨️ Print Token</button>
+                    <button onclick="resetForm()">Register Another Person</button>
+                </div>
+            </div>
+
+            <!-- ADMIN -->
+            <div id="admin" class="section">
+                <h1>Admin Panel</h1>
+                <p class="subtitle">Patient Registry • Demo Preview</p>
+
+                <div class="admin-stats">
+                    <div class="stat-box">
+                        <div class="number" id="totalCount">2,07,339</div>
+                        <div style="color:rgba(255,255,255,0.5); font-size:0.9rem;">Total Registered — Demo Count</div>
+                    </div>
+                </div>
+
+                <div id="adminContent"></div>
+
+                <div class="nav-buttons" style="margin-top: 26px;">
+                    <button class="btn-secondary" onclick="showSection('welcome')">← Back to Home</button>
+                    <button class="btn-danger" onclick="clearAllRegistrations()">Clear Local Registrations</button>
+                </div>
+
+                <footer>Data is stored only in this browser.</footer>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

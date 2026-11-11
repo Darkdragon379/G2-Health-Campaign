@@ -1,4 +1,4 @@
-// ========== CORE APP LOGIC WITH DYNAMIC TIME SLOTS, DEMO DATA & ADMIN AUTH ==========
+// ========== CORE APP LOGIC ==========
 
 document.addEventListener('DOMContentLoaded', function() {
     // Modal Overlay Handling
@@ -26,12 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
     updateAdminStats();
 });
 
-// Dynamic Time Slot Greying/Enabling Logic based on Selected Location Session
+// Dynamic Time Slot Filtering based on Location Session
 function updateAvailableTimeSlots() {
-    const location = document.getElementById('campLocation').value;
+    const locationSelect = document.getElementById('campLocation');
     const timeSlotSelect = document.getElementById('timeSlot');
-    if (!timeSlotSelect) return;
+    if (!locationSelect || !timeSlotSelect) return;
 
+    const location = locationSelect.value;
     const options = timeSlotSelect.options;
     const isMorning = location.includes('Morning Session');
     const isEvening = location.includes('Evening Session');
@@ -44,21 +45,20 @@ function updateAvailableTimeSlots() {
         const isEveningSlot = opt.classList.contains('slot-evening');
 
         if (isMorning) {
+            opt.hidden = !isMorningSlot;
             opt.disabled = !isMorningSlot;
-            opt.style.color = isMorningSlot ? '#ffffff' : '#64748b';
         } else if (isEvening) {
+            opt.hidden = !isEveningSlot;
             opt.disabled = !isEveningSlot;
-            opt.style.color = isEveningSlot ? '#ffffff' : '#64748b';
         } else {
-            // Full Day (e.g., Jalandhar) or default: all slots enabled
+            opt.hidden = false;
             opt.disabled = false;
-            opt.style.color = '#ffffff';
         }
     }
-    timeSlotSelect.selectedIndex = 0; // Reset slot selection when location changes
+    timeSlotSelect.selectedIndex = 0;
 }
 
-// Preload Expanded Demo Registrations
+// Preload Demo Registrations
 function initializeDemoData() {
     if (!localStorage.getItem('g2_registrations')) {
         const demoRegistrations = [
@@ -109,30 +109,6 @@ function initializeDemoData() {
                 assignedDoctor: 'Dr. Ayush Dehury (Dermatologist)',
                 campLocation: 'Bangalore - Cubbon Park',
                 date: '13/12/2026'
-            },
-            {
-                token: 'G2-7856',
-                fullName: 'Kabir Mehta',
-                age: 16,
-                phone: '9700112233',
-                gender: 'Male',
-                timeSlot: '09:00 AM - 11:00 AM',
-                healthCondition: 'Diet',
-                assignedDoctor: 'Dr. Arnav Chhetri (Dietologist)',
-                campLocation: 'Hyderabad - Necklace Road',
-                date: '14/12/2026'
-            },
-            {
-                token: 'G2-5520',
-                fullName: 'Neha Kapoor',
-                age: 15,
-                phone: '9655443322',
-                gender: 'Female',
-                timeSlot: '02:00 PM - 04:00 PM',
-                healthCondition: 'General Fever',
-                assignedDoctor: 'Dr. Advait Upadhyay (General Physician)',
-                campLocation: 'Pune - Shivaji Nagar',
-                date: '15/12/2026'
             }
         ];
         localStorage.setItem('g2_registrations', JSON.stringify(demoRegistrations));
@@ -180,7 +156,7 @@ function generateToken() {
     const randomNum = Math.floor(1000 + Math.random() * 9000);
     const token = 'G2-' + randomNum;
 
-    // Specialist mapping
+    // Specialist Mapping
     let assignedDoctor = "Dr. Divyansh Sharma (Advising Doctor)";
     if (healthCondition === "Eye Problem") {
         assignedDoctor = "Dr. Dhruv Chaturvedi (Eye Specialist)";
@@ -241,7 +217,7 @@ function resetForm() {
     showSection('welcome');
 }
 
-// Secure Admin Panel
+// Secure Admin Panel with Password Verification
 function openAdmin() {
     const password = prompt("Enter Admin Password:");
     if (password === "9cboys") {

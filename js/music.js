@@ -7,33 +7,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
     playerDiv.innerHTML = `
         <span style="display: flex; align-items: center; gap: 6px;">🎷 <strong>Velvet Hours</strong></span>
-        <button id="musicToggleBtn" onclick="toggleMusic()" style="background: #4f46e5; border: none; color: white; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: background 0.2s;">Play</button>
-        <audio id="ambientAudio" loop>
-            <source src="Before-the-City-Wakes.mp3" type="audio/mp3">
+        <button id="musicToggleBtn" style="background: #4f46e5; border: none; color: white; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: background 0.2s;">Play</button>
+        <audio id="ambientAudio" preload="auto" loop>
+            <source src="js/Before_the_City_Wakes.mp3" type="audio/mpeg">
         </audio>
     `;
 
     document.body.appendChild(playerDiv);
+
+    const btn = document.getElementById('musicToggleBtn');
+    const audio = document.getElementById('ambientAudio');
+
+    // Attach click handler directly to avoid inline scope issues
+    btn.addEventListener('click', function() {
+        toggleMusic(audio, btn);
+    });
 });
 
-// Music Toggle Control Logic
-function toggleMusic() {
-    const audio = document.getElementById('ambientAudio');
-    const btn = document.getElementById('musicToggleBtn');
-    
+function toggleMusic(audio, btn) {
     if (!audio) return;
 
     if (audio.paused) {
-        audio.play().then(() => {
-            btn.textContent = "Pause";
-            btn.style.background = "#ef4444"; // Red pause state
-        }).catch(err => {
-            console.log("Playback prevented by browser policy:", err);
-            alert("Please click anywhere on the page first, then hit play!");
-        });
+        // Explicit user gesture triggers play
+        const playPromise = audio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                btn.textContent = "Pause";
+                btn.style.background = "#ef4444";
+            }).catch(err => {
+                console.log("Browser policy blocked audio:", err);
+            });
+        }
     } else {
         audio.pause();
         btn.textContent = "Play";
-        btn.style.background = "#4f46e5"; // Indigo play state
+        btn.style.background = "#4f46e5";
     }
 }

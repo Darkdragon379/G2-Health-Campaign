@@ -1,3 +1,13 @@
+// ========== 3D PARALLAX BACKGROUND EFFECT ==========
+window.addEventListener('scroll', function() {
+    const bg = document.getElementById('parallaxBg');
+    if (!bg) return;
+    
+    // Adjust the multiplier (0.3) to make the background slower. 
+    // Lower = slower and deeper 3D effect. Higher = faster.
+    const scrollPosition = window.pageYOffset;
+    bg.style.transform = `translateY(${scrollPosition * 0.35}px)`;
+});
 // Automatically handle closing the modal when clicked
 document.addEventListener('DOMContentLoaded', function() {
     const closeModalBtn = document.getElementById('close-modal');

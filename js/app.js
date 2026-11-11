@@ -59,40 +59,40 @@ function goToRegistration() {
     showSection('registration');
 }
 
-// ========== LOCATION TO DATE MAPPING (SOLVES THE 1-PERSON CONFLICT) ==========
-function getCampDateForLocation(location) {
+// ========== LOCATION & DUAL-VENUE SPLIT-DAY LOGIC ==========
+function getCampSchedule(location) {
     const scheduleMap = {
-        "Jalandhar - Punjab": "10 Dec 2026",
-        "Delhi - Central Park": "11 Dec 2026",
-        "Delhi - Connaught Place": "11 Dec 2026",
-        "Mumbai - Marine Drive": "12 Dec 2026",
-        "Mumbai - Bandra": "12 Dec 2026",
-        "Bangalore - Cubbon Park": "13 Dec 2026",
-        "Bangalore - MG Road": "13 Dec 2026",
-        "Hyderabad - Necklace Road": "14 Dec 2026",
-        "Hyderabad - Gachibowli": "14 Dec 2026",
-        "Chennai - Marina Beach": "15 Dec 2026",
-        "Chennai - T Nagar": "15 Dec 2026",
-        "Kolkata - Maidan": "16 Dec 2026",
-        "Kolkata - Salt Lake": "16 Dec 2026",
-        "Pune - Shivaji Nagar": "17 Dec 2026",
-        "Pune - Hinjewadi": "17 Dec 2026",
-        "Ahmedabad - Sabarmati Riverfront": "18 Dec 2026",
-        "Jaipur - Albert Hall": "19 Dec 2026",
-        "Lucknow - Hazratganj": "20 Dec 2026",
-        "Chandigarh - Sector 17": "21 Dec 2026",
-        "Indore - Rajwada": "22 Dec 2026",
-        "Bhopal - Lake View": "23 Dec 2026",
-        "Patna - Gandhi Maidan": "24 Dec 2026",
-        "Kochi - Marine Drive": "25 Dec 2026",
-        "Coimbatore - Race Course": "26 Dec 2026",
-        "Surat - Gopi Talav": "27 Dec 2026",
-        "Nagpur - Sitabuldi": "28 Dec 2026",
-        "Visakhapatnam - Beach Road": "29 Dec 2026",
-        "Amritsar - Golden Temple Area": "30 Dec 2026",
-        "Ludhiana - Model Town": "31 Dec 2026"
+        "Jalandhar - Punjab": { date: "10 Dec 2026", session: "Full Day Session" },
+        
+        // Delhi Split
+        "Delhi - Central Park": { date: "11 Dec 2026", session: "Morning Session" },
+        "Delhi - Connaught Place": { date: "11 Dec 2026", session: "Evening Session" },
+        
+        // Mumbai Split
+        "Mumbai - Marine Drive": { date: "12 Dec 2026", session: "Morning Session" },
+        "Mumbai - Bandra": { date: "12 Dec 2026", session: "Evening Session" },
+        
+        // Bangalore Split
+        "Bangalore - Cubbon Park": { date: "13 Dec 2026", session: "Morning Session" },
+        "Bangalore - MG Road": { date: "13 Dec 2026", session: "Evening Session" },
+        
+        // Hyderabad Split
+        "Hyderabad - Necklace Road": { date: "14 Dec 2026", session: "Morning Session" },
+        "Hyderabad - Gachibowli": { date: "14 Dec 2026", session: "Evening Session" },
+        
+        // Chennai Split
+        "Chennai - Marina Beach": { date: "15 Dec 2026", session: "Morning Session" },
+        "Chennai - T Nagar": { date: "15 Dec 2026", session: "Evening Session" },
+        
+        // Kolkata Split
+        "Kolkata - Maidan": { date: "16 Dec 2026", session: "Morning Session" },
+        "Kolkata - Salt Lake": { date: "16 Dec 2026", session: "Evening Session" },
+        
+        // Pune Split
+        "Pune - Shivaji Nagar": { date: "17 Dec 2026", session: "Morning Session" },
+        "Pune - Hinjewadi": { date: "17 Dec 2026", session: "Evening Session" }
     };
-    return scheduleMap[location] || "14 Dec 2026"; // Fallback presentation date
+    return scheduleMap[location] || { date: "18 Dec 2026", session: "Standard Session" };
 }
 
 // ========== TOKEN + RECOMMENDATION + TIME MANAGEMENT ==========
@@ -104,10 +104,13 @@ function generateToken() {
     const condition = document.getElementById('healthCondition').value.trim();
     const location = document.getElementById('campLocation').value;
     const timeSlot = document.getElementById('timeSlot') ? document.getElementById('timeSlot').value : "09:00 AM - 11:00 AM";
-    const campDate = getCampDateForLocation(location);
 
     if (!name) {
         alert("Please enter your full name");
+        return;
+    }
+    if (!location) {
+        alert("Please select a campaign location");
         return;
     }
     if (!condition) {
@@ -115,6 +118,20 @@ function generateToken() {
         return;
     }
 
+    // SMART VALIDATION: Enforce split-day rules for dual venues!
+    const isMorningSlot = timeSlot.includes("09:00") || timeSlot.includes("11:00");
+    const isEveningSlot = timeSlot.includes("02:00") || timeSlot.includes("04:00");
+
+    if (location.includes("Central Park") && !isMorningSlot) {
+        alert("Logistical Notice: Delhi - Central Park only hosts Morning/Late Morning slots (09:00 AM - 01:00 PM) because team relocates to Connaught Place in the afternoon!");
+        return;
+    }
+    if (location.includes("Connaught Place") && !isEveningSlot) {
+        alert("Logistical Notice: Delhi - Connaught Place only hosts Afternoon/Evening slots (02:00 PM onwards) as team is at Central Park in the morning!");
+        return;
+    }
+
+    const campInfo = getCampSchedule(location);
     const token = "G2-" + Math.random().toString(36).substr(2, 6).toUpperCase() + "-" + Date.now().toString().slice(-4);
     const conditionLower = condition.toLowerCase();
 
@@ -151,7 +168,7 @@ function generateToken() {
         doctor = "Dr. Advait Updhyay (General Physician)";
     }
 
-    // Save with Camp Date and Time Slot included
+    // Save with Session Metadata
     saveRegistration({
         id: Date.now(),
         token,
@@ -161,7 +178,8 @@ function generateToken() {
         gender: gender || "-",
         condition,
         location,
-        campDate,
+        campDate: campInfo.date,
+        sessionType: campInfo.session,
         counter,
         doctor,
         timeSlot,
@@ -171,10 +189,10 @@ function generateToken() {
     // Show
     document.getElementById('displayName').textContent = name;
     document.getElementById('tokenDisplay').textContent = token;
-    document.getElementById('displayLocation').textContent = `${location} (Date: ${campDate})`;
+    document.getElementById('displayLocation').textContent = `${location} (${campInfo.date})`;
     
     const slotDisplay = document.getElementById('displayTimeSlot');
-    if (slotDisplay) slotDisplay.innerHTML = `<strong>Reporting Schedule:</strong> ${campDate} | Slot: ${timeSlot}`;
+    if (slotDisplay) slotDisplay.innerHTML = `<strong>Schedule:</strong> ${campInfo.date} | <strong>Session:</strong> ${campInfo.session} (${timeSlot})`;
 
     document.getElementById('counterInfo').innerHTML = `<strong>Please visit:</strong> ${counter}`;
     document.getElementById('doctorInfo').innerHTML = `<strong>Assigned Doctor:</strong> ${doctor}`;
@@ -194,7 +212,7 @@ function resetForm() {
     showSection('welcome');
 }
 
-// ========== ADMIN (DEMO PATIENTS WITH DATES) ==========
+// ========== ADMIN (DEMO PATIENTS WITH SESSIONS) ==========
 const demoPatients = [
     {
         "token": "DEMO-0001", 
@@ -206,7 +224,8 @@ const demoPatients = [
         "tests": "Sample blood count report: available", 
         "doctor": "Dr. Advait Updhyay (General Physician)", 
         "location": "Jalandhar - Punjab",
-        "campDate": "10 Dec 2026"
+        "campDate": "10 Dec 2026",
+        "sessionType": "Full Day Session"
     }, 
     {
         "token": "DEMO-0002", 
@@ -218,7 +237,8 @@ const demoPatients = [
         "tests": "Sample glucose report: available", 
         "doctor": "Dr. Arnav Chhetri (Nutrition & Metabolic Specialist)", 
         "location": "Delhi - Central Park",
-        "campDate": "11 Dec 2026"
+        "campDate": "11 Dec 2026",
+        "sessionType": "Morning Session"
     }, 
     {
         "token": "DEMO-0003", 
@@ -230,7 +250,8 @@ const demoPatients = [
         "tests": "Sample knee imaging report: available", 
         "doctor": "Dr. Arnav Sharma (Orthopedic Specialist)", 
         "location": "Mumbai - Bandra",
-        "campDate": "12 Dec 2026"
+        "campDate": "12 Dec 2026",
+        "sessionType": "Evening Session"
     }, 
     {
         "token": "DEMO-0004", 
@@ -242,7 +263,8 @@ const demoPatients = [
         "tests": "Sample vision screening: available", 
         "doctor": "Dr. Dhruv Chaturvedi (Eye Specialist)", 
         "location": "Bangalore - MG Road",
-        "campDate": "13 Dec 2026"
+        "campDate": "13 Dec 2026",
+        "sessionType": "Evening Session"
     }, 
     {
         "token": "DEMO-0005", 
@@ -254,7 +276,8 @@ const demoPatients = [
         "tests": "Sample dermatology notes: available", 
         "doctor": "Dr. Ayush Dehury (Dermatologist)", 
         "location": "Kolkata - Salt Lake",
-        "campDate": "16 Dec 2026"
+        "campDate": "16 Dec 2026",
+        "sessionType": "Evening Session"
     }, 
     {
         "token": "DEMO-0006", 
@@ -266,31 +289,8 @@ const demoPatients = [
         "tests": "Sample prior visit summary: available", 
         "doctor": "Dr. Advait Updhyay (General Physician)", 
         "location": "Pune - Shivaji Nagar",
-        "campDate": "17 Dec 2026"
-    }, 
-    {
-        "token": "DEMO-0007", 
-        "name": "Dev Malhotra", 
-        "age": 46, 
-        "condition": "Diet/Nutrition Consultation", 
-        "history": "Metabolic follow-up (fictional history)", 
-        "medications": "Existing prescription on file; no dosage shown", 
-        "tests": "Sample blood pressure log: available", 
-        "doctor": "Dr. Arnav Chhetri (Dietologist)", 
-        "location": "Chandigarh - Sector 17",
-        "campDate": "21 Dec 2026"
-    }, 
-    {
-        "token": "DEMO-0008", 
-        "name": "Tara Nair", 
-        "age": 25, 
-        "condition": "General consultation", 
-        "history": "No significant history reported", 
-        "medications": "None listed", 
-        "tests": "Sample previous consultation notes: available", 
-        "doctor": "Dr. Advait Updhyay (General Physician)", 
-        "location": "Kochi - Marine Drive",
-        "campDate": "25 Dec 2026"
+        "campDate": "17 Dec 2026",
+        "sessionType": "Morning Session"
     }
 ];
 
@@ -301,17 +301,17 @@ function escapeText(value) {
 function renderAdmin() {
     const local = getRegistrations();
     document.getElementById('totalCount').textContent = (207339).toLocaleString('en-IN');
-    const demoFields = ['token', 'name', 'age', 'condition', 'history', 'medications', 'tests', 'doctor', 'location', 'campDate'];
-    let html = '<h2 style="margin-bottom:12px;">Sample Patient Records</h2><p style="margin-bottom:16px; opacity:0.7;">Showing 8 demo records</p><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Demo Patient ID</th><th>Name</th><th>Age</th><th>Visit Reason</th><th>Medical History</th><th>Prescription / Medication List</th><th>Medical Records</th><th>Assigned Doctor</th><th>Camp Location</th><th>Camp Date</th></tr></thead><tbody>';
+    const demoFields = ['token', 'name', 'age', 'condition', 'doctor', 'location', 'campDate', 'sessionType'];
+    let html = '<h2 style="margin-bottom:12px;">Sample Patient Records</h2><p style="margin-bottom:16px; opacity:0.7;">Showing demo records with split-session mapping</p><div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Token</th><th>Name</th><th>Age</th><th>Condition</th><th>Assigned Doctor</th><th>Location</th><th>Date</th><th>Session</th></tr></thead><tbody>';
     demoPatients.forEach(r => {
         html += '<tr>' + demoFields.map(key => '<td>' + escapeText(r[key]) + '</td>').join('') + '</tr>';
     });
-    html += '</tbody></table></div><h2 style="margin:26px 0 12px;">Local Browser Registrations (' + local.length.toLocaleString('en-IN') + ')</h2><p style="opacity:0.7; margin-bottom:14px;">Separate from the demo count with schedule and time tracking.</p>';
+    html += '</tbody></table></div><h2 style="margin:26px 0 12px;">Local Browser Registrations (' + local.length.toLocaleString('en-IN') + ')</h2><p style="opacity:0.7; margin-bottom:14px;">Live submissions tracked with split-session validation.</p>';
     if (!local.length) html += '<div class="empty-msg">No local registrations yet.</div>';
     else {
-        html += '<div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Token</th><th>Name</th><th>Age</th><th>Condition</th><th>Location</th><th>Camp Date</th><th>Doctor</th><th>Time Slot</th></tr></thead><tbody>';
+        html += '<div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Token</th><th>Name</th><th>Age</th><th>Condition</th><th>Location</th><th>Camp Date</th><th>Session</th><th>Doctor</th><th>Time Slot</th></tr></thead><tbody>';
         local.forEach(r => { 
-            html += '<tr>' + ['token','name','age','condition','location','campDate','doctor','timeSlot'].map(k => '<td>' + escapeText(r[k] || '-') + '</td>').join('') + '</tr>'; 
+            html += '<tr>' + ['token','name','age','condition','location','campDate','sessionType','doctor','timeSlot'].map(k => '<td>' + escapeText(r[k] || '-') + '</td>').join('') + '</tr>'; 
         });
         html += '</tbody></table></div>';
     }

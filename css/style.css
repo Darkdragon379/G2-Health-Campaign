@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 /* ==========================================
-   1. GLOBAL & RESET STYLES
+   1. GLOBAL & LIQUID GLASS BACKGROUND
    ================================---------- */
 * {
     margin: 0;
@@ -12,36 +12,27 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient(145deg, #0a0a0c 0%, #12121a 40%, #0e0e16 100%);
+    background-image: url('Futuristic Teal ECG Waves.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #fff;
     position: relative;
     overflow-x: hidden;
 }
 
-/* Ambient background glows */
-body::before,
-body::after {
+/* Ambient glow overlay to enrich depth */
+body::before {
     content: '';
     position: fixed;
-    border-radius: 50%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(4, 9, 20, 0.45);
     z-index: 0;
     pointer-events: none;
-}
-
-body::before {
-    width: 520px;
-    height: 520px;
-    background: radial-gradient(circle, rgba(96, 165, 250, 0.09) 0%, transparent 70%);
-    top: -160px;
-    right: -120px;
-}
-
-body::after {
-    width: 420px;
-    height: 420px;
-    background: radial-gradient(circle, rgba(96, 165, 250, 0.06) 0%, transparent 70%);
-    bottom: -120px;
-    left: -100px;
 }
 
 .watermark {
@@ -51,7 +42,7 @@ body::after {
     transform: translate(-50%, -50%) rotate(-28deg);
     font-size: 5.5rem;
     font-weight: 800;
-    color: rgba(0, 0, 0, 0.42);
+    color: rgba(255, 255, 255, 0.02);
     pointer-events: none;
     z-index: 0;
     white-space: nowrap;
@@ -60,7 +51,7 @@ body::after {
 }
 
 /* ==========================================
-   2. CONTAINERS & CARDS
+   2. CONTAINERS & LIQUID GLASS CARDS
    ================================---------- */
 .container {
     max-width: 920px;
@@ -71,17 +62,18 @@ body::after {
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    background: rgba(10, 20, 35, 0.55);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
     border-radius: 24px;
     padding: 42px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(96, 165, 250, 0.15);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(96, 165, 250, 0.25);
 }
 
 /* ==========================================
-   3. TYPOGRAPHY & FORMS (GLOBAL BLUE GLOW)
+   3. TYPOGRAPHY & LIQUID GLASS INPUTS
    ================================---------- */
 h1 {
     text-align: center;
@@ -99,7 +91,7 @@ h1 {
 .subtitle {
     text-align: center;
     margin-bottom: 28px;
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 1.05rem;
     line-height: 1.5;
 }
@@ -107,7 +99,7 @@ h1 {
 .branding {
     text-align: center;
     font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.45);
     margin-bottom: 28px;
 }
 
@@ -129,13 +121,15 @@ label {
 input, select, textarea {
     width: 100%;
     padding: 14px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: #fff;
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
 input::placeholder,
@@ -145,11 +139,12 @@ textarea::placeholder {
 
 input:focus, select:focus, textarea:focus {
     border-color: #60a5fa;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
 }
 
 select option {
-    background: #12121a;
+    background: #0f172a;
     color: #fff;
 }
 
@@ -159,28 +154,28 @@ textarea {
 }
 
 /* ==========================================
-   4. STANDARD BUTTONS
+   4. LIQUID GLASS BUTTONS
    ================================---------- */
 button {
     width: 100%;
     padding: 15px;
     margin-top: 24px;
-    background: #3b82f6;
-    border: none;
-    border-radius: 12px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
     color: #ffffff;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
     letter-spacing: 0.3px;
-    box-shadow: 0 0 18px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
 }
 
 button:hover {
     transform: translateY(-2px);
-    background: #2563eb;
-    box-shadow: 0 0 24px rgba(59, 130, 246, 0.6);
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    box-shadow: 0 10px 25px rgba(96, 165, 250, 0.6);
 }
 
 .btn-secondary {
@@ -208,14 +203,16 @@ button:hover {
 }
 
 /* ==========================================
-   5. DOCTORS PANEL & CARDS
+   5. DOCTORS PANEL & GLASS CARDS
    ================================---------- */
 .doctors-panel {
     margin: 26px 0 8px;
     padding: 22px;
-    border: 1px solid rgba(96, 165, 250, 0.28);
+    border: 1px solid rgba(96, 165, 250, 0.25);
     border-radius: 18px;
-    background: rgba(0, 0, 0, 0.22);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .doctors-panel h2 {
@@ -228,7 +225,7 @@ button:hover {
 
 .doctors-intro {
     text-align: center;
-    color: rgba(255, 255, 255, 0.58);
+    color: rgba(255, 255, 255, 0.65);
     font-size: 0.9rem;
     margin-bottom: 16px;
 }
@@ -243,6 +240,8 @@ button:hover {
     padding: 13px 15px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.045);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -254,13 +253,13 @@ button:hover {
 }
 
 .doctor-card span {
-    color: rgba(255, 255, 255, 0.62);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.84rem;
     line-height: 1.4;
 }
 
 /* ==========================================
-   6. CAMPAIGN MODAL (CLEAN BLUE GLOW)
+   6. CAMPAIGN MODAL (GLASSMORPHIC)
    ================================---------- */
 #campaign-modal.modal-overlay {
     position: fixed;
@@ -268,23 +267,26 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(4, 9, 20, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 #campaign-modal .modal-box {
-    background-color: #111111;
-    border: 1px solid rgba(96, 165, 250, 0.2);
+    background: rgba(10, 20, 35, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(96, 165, 250, 0.3);
     width: 90%;
     max-width: 420px;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 28px;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.8);
     color: #fff;
 }
 
@@ -293,59 +295,49 @@ button:hover {
     font-weight: 900;
     color: #60a5fa !important;
     background: transparent !important;
-    background-color: transparent !important;
     text-shadow: 0 0 16px rgba(96, 165, 250, 0.65);
 }
 
 #campaign-modal .modal-logo-text .highlight {
     background: transparent !important;
-    background-color: transparent !important;
     color: #60a5fa !important;
     padding: 0 !important;
     border-radius: 0 !important;
-    margin-left: 0;
     text-shadow: 0 0 16px rgba(96, 165, 250, 0.65);
 }
 
 #campaign-modal .modal-body h3 {
     margin: 18px 0 10px;
     font-size: 15px;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    background-color: transparent !important;
     color: #60a5fa !important;
     text-shadow: 0 0 14px rgba(96, 165, 250, 0.55);
 }
 
 #campaign-modal .modal-body p {
     font-size: 13px;
-    color: #999999;
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.5;
     margin-bottom: 20px;
 }
 
 #campaign-modal button {
-    background: #3b82f6 !important;
-    background-color: #3b82f6 !important;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
     color: #ffffff !important;
-    border: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
     font-weight: bold !important;
     padding: 12px 20px !important;
-    border-radius: 6px !important;
+    border-radius: 12px !important;
     cursor: pointer !important;
     font-size: 14px !important;
     width: 100% !important;
     margin-top: 15px !important;
     transform: none !important;
-    box-shadow: 0 0 18px rgba(59, 130, 246, 0.4) !important;
-    letter-spacing: normal !important;
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4) !important;
 }
 
 #campaign-modal button:hover {
-    background: #2563eb !important;
-    background-color: #2563eb !important;
-    box-shadow: 0 0 24px rgba(59, 130, 246, 0.6) !important;
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%) !important;
+    box-shadow: 0 10px 25px rgba(96, 165, 250, 0.6) !important;
     transform: none !important;
 }
 
@@ -356,9 +348,14 @@ button:hover {
     display: none;
     margin-top: 28px;
     padding: 28px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: 16px;
     border-left: 5px solid #60a5fa;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .result-box h2 {
@@ -372,7 +369,7 @@ button:hover {
     font-size: 1.7rem;
     font-weight: 800;
     letter-spacing: 3px;
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(10, 20, 35, 0.7);
     display: inline-block;
     padding: 12px 26px;
     border-radius: 10px;
@@ -420,12 +417,12 @@ button:hover {
     border-radius: 50px;
     background: rgba(255, 255, 255, 0.05);
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.45);
-    border: 1px solid transparent;
+    color: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .step.active {
-    background: rgba(96, 165, 250, 0.15);
+    background: rgba(96, 165, 250, 0.2);
     color: #bfdbfe;
     border-color: rgba(96, 165, 250, 0.4);
     font-weight: 600;
@@ -441,11 +438,11 @@ footer {
     text-align: center;
     margin-top: 28px;
     font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.45);
 }
 
 /* ==========================================
-   8. ADMIN DASHBOARD
+   8. ADMIN DASHBOARD GLASS
    ================================---------- */
 .admin-table {
     width: 100%;
@@ -458,17 +455,17 @@ footer {
 .admin-table td {
     padding: 12px 10px;
     text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .admin-table th {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(15, 23, 42, 0.6);
     font-weight: 600;
     color: #60a5fa;
 }
 
 .admin-table tr:hover {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .admin-stats {
@@ -479,13 +476,15 @@ footer {
 }
 
 .stat-box {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 18px 22px;
     border-radius: 14px;
     flex: 1;
     min-width: 130px;
     text-align: center;
-    border: 1px solid rgba(96, 165, 250, 0.15);
+    border: 1px solid rgba(96, 165, 250, 0.2);
 }
 
 .stat-box .number {
@@ -498,7 +497,7 @@ footer {
 .empty-msg {
     text-align: center;
     padding: 50px 20px;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .admin-link {
@@ -507,7 +506,7 @@ footer {
 }
 
 .admin-link a {
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.45);
     font-size: 0.85rem;
     text-decoration: none;
     transition: color 0.2s;

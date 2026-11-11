@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     audio.src = 'js/Before_the_City_Wakes.mp3';
     audio.loop = true;
     audio.preload = 'auto';
+    
+    // Set background music volume (0.0 to 1.0 -> 0.3 is 30% volume)
+    audio.volume = 0.3; 
+
     document.body.appendChild(audio);
 
     // Function to attempt playback

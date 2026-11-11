@@ -1,4 +1,4 @@
-// ========== CORE APP LOGIC ==========
+// ========== CORE APP LOGIC WITH DEMO DATA & ADMIN AUTH ==========
 
 document.addEventListener('DOMContentLoaded', function() {
     // Modal Overlay Handling
@@ -15,9 +15,52 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Load initial admin counts or state if needed
+    // Initialize Default Demo Registrations if localStorage is empty
+    initializeDemoData();
     updateAdminStats();
 });
+
+// Preload Demo Registrations
+function initializeDemoData() {
+    if (!localStorage.getItem('g2_registrations')) {
+        const demoRegistrations = [
+            {
+                token: 'G2-4819',
+                fullName: 'Aarav Sharma',
+                age: 16,
+                phone: '9876543210',
+                gender: 'Male',
+                timeSlot: '09:00 AM - 11:00 AM',
+                healthCondition: 'Cardiac',
+                campLocation: 'Jalandhar - Punjab',
+                date: '10/12/2026'
+            },
+            {
+                token: 'G2-9231',
+                fullName: 'Ananya Verma',
+                age: 15,
+                phone: '9123456789',
+                gender: 'Female',
+                timeSlot: '11:00 AM - 01:00 PM',
+                healthCondition: 'Eye Problem',
+                campLocation: 'Delhi - Central Park',
+                date: '11/12/2026'
+            },
+            {
+                token: 'G2-1045',
+                fullName: 'Rohan Gupta',
+                age: 17,
+                phone: '9988776655',
+                gender: 'Male',
+                timeSlot: '02:00 PM - 04:00 PM',
+                healthCondition: 'Orthopedic',
+                campLocation: 'Mumbai - Marine Drive',
+                date: '12/12/2026'
+            }
+        ];
+        localStorage.setItem('g2_registrations', JSON.stringify(demoRegistrations));
+    }
+}
 
 // Section Navigation Controller
 function showSection(sectionId) {
@@ -56,18 +99,15 @@ function generateToken() {
         return;
     }
 
-    // Generate a unique token string
     const randomNum = Math.floor(1000 + Math.random() * 9000);
     const token = 'G2-' + randomNum;
 
-    // Populate Result screen
     document.getElementById('displayName').textContent = fullName;
     document.getElementById('tokenDisplay').textContent = token;
     document.getElementById('displayLocation').textContent = campLocation;
     document.getElementById('displayTimeSlot').innerHTML = `<strong>Reporting Time:</strong> ${timeSlot}`;
     document.getElementById('counterInfo').innerHTML = `<strong>Condition / Category:</strong> ${healthCondition}`;
     
-    // Assign doctor based on condition
     let assignedDoctor = "Dr. Divyansh Sharma (Advising Doctor)";
     if (healthCondition === "Eye Problem") assignedDoctor = "Dr. Dhruv Chaturvedi (Eye Specialist)";
     else if (healthCondition === "Orthopedic") assignedDoctor = "Dr. Arnav Sharma (Orthopedic Specialist)";
@@ -77,7 +117,6 @@ function generateToken() {
     
     document.getElementById('doctorInfo').innerHTML = `<strong>Assigned Specialist:</strong> ${assignedDoctor}`;
 
-    // Save registration to localStorage
     saveRegistrationData({
         token,
         fullName,
@@ -112,17 +151,22 @@ function resetForm() {
     showSection('welcome');
 }
 
-// Admin Panel Viewer
+// Secure Admin Panel with Password Verification
 function openAdmin() {
-    renderAdminTable();
-    showSection('admin');
+    const password = prompt("Enter Admin Password:");
+    // Default demo password is set to "9cboys" (you can change this anytime)
+    if (password === "9cboys") {
+        renderAdminTable();
+        showSection('admin');
+    } else if (password !== null) {
+        alert("Incorrect Admin Password!");
+    }
 }
 
 function renderAdminTable() {
     const adminContent = document.getElementById('adminContent');
     let registrations = JSON.parse(localStorage.getItem('g2_registrations')) || [];
     
-    // Update base counter display
     const baseCount = 207339 + registrations.length;
     document.getElementById('totalCount').textContent = baseCount.toLocaleString();
 
@@ -135,7 +179,7 @@ function renderAdminTable() {
         <div style="overflow-x: auto;">
             <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
                 <thead>
-                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.2); color: #93c5fd;">
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.2); color: #60a5fa;">
                         <th style="padding: 8px;">Token</th>
                         <th style="padding: 8px;">Name</th>
                         <th style="padding: 8px;">Location</th>
@@ -146,7 +190,7 @@ function renderAdminTable() {
                 <tbody>
     `;
 
-    registrations.reverse().forEach(reg => {
+    [...registrations].reverse().forEach(reg => {
         html += `
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); color: #e2e8f0;">
                 <td style="padding: 8px; color: #60a5fa; font-weight: bold;">${reg.token}</td>

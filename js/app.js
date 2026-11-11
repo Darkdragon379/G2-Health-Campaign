@@ -1,4 +1,4 @@
-// ========== CORE APP LOGIC WITH DEMO DATA & ADMIN AUTH ==========
+// ========== CORE APP LOGIC WITH EXPANDED DEMO DATA & ADMIN AUTH ==========
 
 document.addEventListener('DOMContentLoaded', function() {
     // Modal Overlay Handling
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateAdminStats();
 });
 
-// Preload Demo Registrations
+// Preload Expanded Demo Registrations
 function initializeDemoData() {
     if (!localStorage.getItem('g2_registrations')) {
         const demoRegistrations = [
@@ -32,6 +32,7 @@ function initializeDemoData() {
                 gender: 'Male',
                 timeSlot: '09:00 AM - 11:00 AM',
                 healthCondition: 'Cardiac',
+                assignedDoctor: 'Dr. Harshit (Cardiologist)',
                 campLocation: 'Jalandhar - Punjab',
                 date: '10/12/2026'
             },
@@ -43,6 +44,7 @@ function initializeDemoData() {
                 gender: 'Female',
                 timeSlot: '11:00 AM - 01:00 PM',
                 healthCondition: 'Eye Problem',
+                assignedDoctor: 'Dr. Dhruv Chaturvedi (Eye Specialist)',
                 campLocation: 'Delhi - Central Park',
                 date: '11/12/2026'
             },
@@ -54,8 +56,45 @@ function initializeDemoData() {
                 gender: 'Male',
                 timeSlot: '02:00 PM - 04:00 PM',
                 healthCondition: 'Orthopedic',
+                assignedDoctor: 'Dr. Arnav Sharma (Orthopedic Specialist)',
                 campLocation: 'Mumbai - Marine Drive',
                 date: '12/12/2026'
+            },
+            {
+                token: 'G2-3372',
+                fullName: 'Priya Singh',
+                age: 14,
+                phone: '9811223344',
+                gender: 'Female',
+                timeSlot: '04:00 PM - 06:00 PM',
+                healthCondition: 'Skin',
+                assignedDoctor: 'Dr. Ayush Dehury (Dermatologist)',
+                campLocation: 'Bangalore - Cubbon Park',
+                date: '13/12/2026'
+            },
+            {
+                token: 'G2-7856',
+                fullName: 'Kabir Mehta',
+                age: 16,
+                phone: '9700112233',
+                gender: 'Male',
+                timeSlot: '09:00 AM - 11:00 AM',
+                healthCondition: 'Diet',
+                assignedDoctor: 'Dr. Arnav Chhetri (Dietologist)',
+                campLocation: 'Hyderabad - Necklace Road',
+                date: '14/12/2026'
+            },
+            {
+                token: 'G2-5520',
+                fullName: 'Neha Kapoor',
+                age: 15,
+                phone: '9655443322',
+                gender: 'Female',
+                timeSlot: '02:00 PM - 04:00 PM',
+                healthCondition: 'General Fever',
+                assignedDoctor: 'Dr. Advait Upadhyay (General Physician)',
+                campLocation: 'Pune - Shivaji Nagar',
+                date: '15/12/2026'
             }
         ];
         localStorage.setItem('g2_registrations', JSON.stringify(demoRegistrations));
@@ -84,7 +123,7 @@ function goToRegistration() {
     showSection('registration');
 }
 
-// Token Generation Logic
+// Token Generation & Doctor Assignment Logic
 function generateToken() {
     const fullName = document.getElementById('fullName').value.trim();
     const age = document.getElementById('age').value.trim();
@@ -102,21 +141,33 @@ function generateToken() {
     const randomNum = Math.floor(1000 + Math.random() * 9000);
     const token = 'G2-' + randomNum;
 
+    // Determine Assigned Doctor based on Health Condition
+    let assignedDoctor = "Dr. Divyansh Sharma (Advising Doctor)";
+    if (healthCondition === "Eye Problem") {
+        assignedDoctor = "Dr. Dhruv Chaturvedi (Eye Specialist)";
+    } else if (healthCondition === "General Fever") {
+        assignedDoctor = "Dr. Advait Upadhyay (General Physician)";
+    } else if (healthCondition === "Diabetes") {
+        assignedDoctor = "Dr. Divyansh Sharma (Senior & Advising Doctor)";
+    } else if (healthCondition === "Orthopedic") {
+        assignedDoctor = "Dr. Arnav Sharma (Orthopedic Specialist)";
+    } else if (healthCondition === "Diet") {
+        assignedDoctor = "Dr. Arnav Chhetri (Dietologist)";
+    } else if (healthCondition === "Skin") {
+        assignedDoctor = "Dr. Ayush Dehury (Dermatologist)";
+    } else if (healthCondition === "Cardiac") {
+        assignedDoctor = "Dr. Harshit (Cardiologist)";
+    }
+
+    // Populate Result screen
     document.getElementById('displayName').textContent = fullName;
     document.getElementById('tokenDisplay').textContent = token;
     document.getElementById('displayLocation').textContent = campLocation;
     document.getElementById('displayTimeSlot').innerHTML = `<strong>Reporting Time:</strong> ${timeSlot}`;
     document.getElementById('counterInfo').innerHTML = `<strong>Condition / Category:</strong> ${healthCondition}`;
-    
-    let assignedDoctor = "Dr. Divyansh Sharma (Advising Doctor)";
-    if (healthCondition === "Eye Problem") assignedDoctor = "Dr. Dhruv Chaturvedi (Eye Specialist)";
-    else if (healthCondition === "Orthopedic") assignedDoctor = "Dr. Arnav Sharma (Orthopedic Specialist)";
-    else if (healthCondition === "Diet") assignedDoctor = "Dr. Arnav Chhetri (Dietologist)";
-    else if (healthCondition === "Skin") assignedDoctor = "Dr. Ayush Dehury (Dermatologist)";
-    else if (healthCondition === "Cardiac") assignedDoctor = "Dr. Harshit (Cardiologist)";
-    
     document.getElementById('doctorInfo').innerHTML = `<strong>Assigned Specialist:</strong> ${assignedDoctor}`;
 
+    // Save registration data including assigned doctor
     saveRegistrationData({
         token,
         fullName,
@@ -125,6 +176,7 @@ function generateToken() {
         gender,
         timeSlot,
         healthCondition,
+        assignedDoctor,
         campLocation,
         date: new Date().toLocaleDateString()
     });
@@ -154,7 +206,6 @@ function resetForm() {
 // Secure Admin Panel with Password Verification
 function openAdmin() {
     const password = prompt("Enter Admin Password:");
-    // Default demo password is set to "9cboys" (you can change this anytime)
     if (password === "9cboys") {
         renderAdminTable();
         showSection('admin');
@@ -184,6 +235,7 @@ function renderAdminTable() {
                         <th style="padding: 8px;">Name</th>
                         <th style="padding: 8px;">Location</th>
                         <th style="padding: 8px;">Condition</th>
+                        <th style="padding: 8px;">Doctor</th>
                         <th style="padding: 8px;">Slot</th>
                     </tr>
                 </thead>
@@ -197,6 +249,7 @@ function renderAdminTable() {
                 <td style="padding: 8px;">${reg.fullName}</td>
                 <td style="padding: 8px;">${reg.campLocation}</td>
                 <td style="padding: 8px;">${reg.healthCondition}</td>
+                <td style="padding: 8px; color: #93c5fd;">${reg.assignedDoctor || 'N/A'}</td>
                 <td style="padding: 8px;">${reg.timeSlot}</td>
             </tr>
         `;

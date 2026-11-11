@@ -160,7 +160,7 @@
             
             <nav class="nav-links" id="navLinks">
                 <a href="#" onclick="showSection('welcome'); toggleMobileMenu(); return false;">Home</a>
-                <a href="#about" onclick="showSection('welcome'); toggleMobileMenu(); return false;">About</a>
+                <a href="#" onclick="showSection('about-section'); toggleMobileMenu(); return false;">About</a>
                 <a href="#doctors" onclick="showSection('welcome'); toggleMobileMenu(); return false;">Doctors</a>
                 <a href="#" onclick="showSection('location'); toggleMobileMenu(); return false;">Register Now</a>
             </nav>
@@ -249,7 +249,31 @@
 
                 <footer>Local Storage Only • Secure & Private</footer>
             </div>
+            <!-- ABOUT -->
+            <div id="about-section" class="section">
+                <div class="step-indicator">
+                    <div class="step completed">1. Welcome</div>
+                    <div class="step active">About Campaign</div>
+                </div>
 
+                <h1>About G2 Health Campaign</h1>
+                <p class="subtitle">Empowering communities through accessible healthcare guidance</p>
+
+                <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(96, 165, 250, 0.2); border-radius: 16px; padding: 24px; text-align: left; margin-bottom: 24px;">
+                    <h3 style="color: #60a5fa; margin-bottom: 12px; font-size: 1.1rem;">Our Mission & Vision</h3>
+                    <p style="color: rgba(255, 255, 255, 0.85); font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px;">
+                        The <strong>9C Boys G2 Health Campaign</strong> is an initiative dedicated to bridging the gap between individuals and professional medical diagnostics. We provide seamless registration tokens, direct specialist doctor assignments (including general medicine, ophthalmology, orthopedics, dietology, dermatology, and cardiology), and structured camp scheduling across major cities in India.
+                    </p>
+                    <p style="color: rgba(255, 255, 255, 0.85); font-size: 0.95rem; line-height: 1.6;">
+                        Designed and powered exclusively by <strong>@9C Boys G2</strong>, our portal ensures quick access, secure local browser record-keeping, and organized time-slot management to make community health camps efficient for everyone.
+                    </p>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn-secondary" onclick="showSection('welcome')">← Back to Home</button>
+                    <button onclick="showSection('location')">Start Registration →</button>
+                </div>
+            </div>
             <!-- LOCATION -->
             <div id="location" class="section">
                 <div class="step-indicator">

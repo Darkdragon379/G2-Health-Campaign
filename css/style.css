@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 /* ==========================================
-   1. GLOBAL & 3D PARALLAX BACKGROUND STYLES
+   1. GLOBAL & DUAL BACKGROUND STYLES
    ================================---------- */
 * {
     margin: 0;
@@ -18,14 +18,14 @@ body {
     background-color: #040914; /* Fallback color */
 }
 
-/* 3D Parallax Background Layer */
+/* Desktop & Laptop Background (Horizontal / Landscape with 3D Parallax) */
 .parallax-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 120vh; /* Extra height to allow smooth parallax travel */
-    background-image: url('Futuristic Teal ECG Waves.png');
+    height: 120vh; /* Extra height for desktop 3D parallax travel */
+    background-image: url('laptop-bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -529,8 +529,17 @@ footer {
 }
 
 /* ==========================================
-   9. RESPONSIVE & PRINT STYLES
+   9. MOBILE DUAL-BACKGROUND & RESPONSIVE
    ================================---------- */
+@media (max-width: 768px) {
+    /* Mobile Phone Background (Vertical / Portrait) */
+    .parallax-bg {
+        height: 100vh;
+        background-image: url('phone-bg.png');
+        transform: none !important; /* Disables desktop parallax shift on mobile to prevent bugs */
+    }
+}
+
 @media (max-width: 600px) {
     h1 { font-size: 1.7rem; }
     .card { padding: 28px 18px; }

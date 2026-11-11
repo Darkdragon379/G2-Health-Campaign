@@ -229,7 +229,7 @@ function generateToken() {
     }
     else {
         counter = "Counter 1 (General Checkup)";
-        doctor = "Dr. Advait Updhyay (General Physician)";
+        doctor = "Dr. Advait Upadhaya (General Physician)";
     }
 
     saveRegistration({
@@ -284,7 +284,7 @@ const demoPatients = [
         "history": "No significant history reported", 
         "medications": "None listed", 
         "tests": "Sample blood count report: available", 
-        "doctor": "Dr. Advait Updhyay (General Physician)", 
+        "doctor": "Dr. Advait Upadhaya (General Physician)", 
         "location": "Jalandhar - Punjab",
         "campDate": "10 Dec 2026",
         "sessionType": "Full Day Session"
@@ -349,7 +349,7 @@ const demoPatients = [
         "history": "Prior routine check-ups", 
         "medications": "Medication list pending review", 
         "tests": "Sample prior visit summary: available", 
-        "doctor": "Dr. Advait Updhyay (General Physician)", 
+        "doctor": "Dr. Advait Upadhaya (General Physician)", 
         "location": "Pune - Shivaji Nagar",
         "campDate": "17 Dec 2026",
         "sessionType": "Morning Session"

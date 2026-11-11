@@ -1,42 +1,385 @@
-/* Core Styling Variables & Reset */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ==========================================
+   1. GLOBAL & RESET STYLES
+   ================================---------- */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
 body {
-    background: #0f172a;
-    color: #f8fafc;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    background: linear-gradient(145deg, #0a0a0c 0%, #12121a 40%, #0e0e16 100%);
+    color: #fff;
     position: relative;
+    overflow-x: hidden;
+}
+
+/* Ambient background glows */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+body::before {
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(217, 185, 81, 0.09) 0%, transparent 70%);
+    top: -160px;
+    right: -120px;
+}
+
+body::after {
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(217, 185, 81, 0.06) 0%, transparent 70%);
+    bottom: -120px;
+    left: -100px;
 }
 
 .watermark {
     position: fixed;
-    bottom: 10px;
-    right: 15px;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.2);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-28deg);
+    font-size: 5.5rem;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.42);
     pointer-events: none;
+    z-index: 0;
+    white-space: nowrap;
+    user-select: none;
+    letter-spacing: 6px;
 }
 
+/* ==========================================
+   2. CONTAINERS & CARDS
+   ================================---------- */
 .container {
-    width: 100%;
-    max-width: 600px;
-    background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 920px;
+    margin: 40px auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     border-radius: 24px;
-    padding: 30px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    padding: 42px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(217, 185, 81, 0.15);
+}
+
+/* ==========================================
+   3. TYPOGRAPHY & FORMS (GLOBAL AMBER GLOW)
+   ================================---------- */
+h1 {
+    text-align: center;
+    font-size: 2.35rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    background-clip: initial !important;
+    color: #D9B951 !important;
+    text-shadow: 0 0 18px rgba(217, 185, 81, 0.6);
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 28px;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+.branding {
+    text-align: center;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 28px;
+}
+
+.branding strong,
+.highlight,
+.amber-glow {
+    color: #D9B951 !important;
+    text-shadow: 0 0 16px rgba(217, 185, 81, 0.55);
+}
+
+label {
+    display: block;
+    margin: 18px 0 7px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #D9B951;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+select option {
+    background: #12121a;
+    color: #fff;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* ==========================================
+   4. STANDARD BUTTONS
+   ================================---------- */
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 24px;
+    background: #D9B951;
+    border: none;
+    border-radius: 12px;
+    color: #0a0a0c;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.3px;
+    box-shadow: 0 0 18px rgba(217, 185, 81, 0.4);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    background: #c7a743;
+    box-shadow: 0 0 24px rgba(217, 185, 81, 0.6);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    box-shadow: none;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: none;
+    transform: none;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #e11d48, #be123c);
+    color: #fff;
+    box-shadow: none;
+}
+
+.btn-danger:hover {
+    box-shadow: 0 12px 28px rgba(225, 29, 72, 0.35);
+    transform: none;
+}
+
+/* ==========================================
+   5. DOCTORS PANEL & CARDS
+   ================================---------- */
+.doctors-panel {
+    margin: 26px 0 8px;
+    padding: 22px;
+    border: 1px solid rgba(217, 185, 81, 0.28);
+    border-radius: 18px;
+    background: rgba(0, 0, 0, 0.22);
+}
+
+.doctors-panel h2 {
+    color: #D9B951;
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    text-shadow: 0 0 14px rgba(217, 185, 81, 0.5);
+}
+
+.doctors-intro {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
+
+.doctors-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.doctor-card {
+    padding: 13px 15px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.doctor-card strong {
+    display: block;
+    color: #f5e6b8;
+    font-size: 0.96rem;
+    margin-bottom: 4px;
+}
+
+.doctor-card span {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.84rem;
+    line-height: 1.4;
+}
+
+/* ==========================================
+   6. CAMPAIGN MODAL (CLEAN AMBER GLOW)
+   ================================---------- */
+#campaign-modal.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+#campaign-modal .modal-box {
+    background-color: #111111;
+    border: 1px solid rgba(217, 185, 81, 0.2);
+    width: 90%;
+    max-width: 420px;
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+    color: #fff;
+}
+
+#campaign-modal .modal-logo-text {
+    font-size: 26px;
+    font-weight: 900;
+    color: #D9B951 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    text-shadow: 0 0 16px rgba(217, 185, 81, 0.65);
+}
+
+#campaign-modal .modal-logo-text .highlight {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: #D9B951 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    margin-left: 0;
+    text-shadow: 0 0 16px rgba(217, 185, 81, 0.65);
+}
+
+#campaign-modal .modal-body h3 {
+    margin: 18px 0 10px;
+    font-size: 15px;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    color: #D9B951 !important;
+    text-shadow: 0 0 14px rgba(217, 185, 81, 0.55);
+}
+
+#campaign-modal .modal-body p {
+    font-size: 13px;
+    color: #999999;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+#campaign-modal button {
+    background: #D9B951 !important;
+    background-color: #D9B951 !important;
+    color: #0a0a0c !important;
+    border: none !important;
+    font-weight: bold !important;
+    padding: 12px 20px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    width: 100% !important;
+    margin-top: 15px !important;
+    transform: none !important;
+    box-shadow: 0 0 18px rgba(217, 185, 81, 0.4) !important;
+    letter-spacing: normal !important;
+}
+
+#campaign-modal button:hover {
+    background: #c7a743 !important;
+    background-color: #c7a743 !important;
+    box-shadow: 0 0 24px rgba(217, 185, 81, 0.6) !important;
+    transform: none !important;
+}
+
+/* ==========================================
+   7. SECTIONS, STEPS & RESULTS
+   ================================---------- */
+.result-box {
+    display: none;
+    margin-top: 28px;
+    padding: 28px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    border-left: 5px solid #D9B951;
+}
+
+.result-box h2 {
+    color: #D9B951;
+    margin-bottom: 14px;
+    font-size: 1.5rem;
+    text-shadow: 0 0 14px rgba(217, 185, 81, 0.5);
+}
+
+.token {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    background: rgba(0, 0, 0, 0.55);
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 10px;
+    margin: 12px 0;
+    border: 1px solid rgba(217, 185, 81, 0.3);
+    color: #f5e6b8;
+    text-shadow: 0 0 12px rgba(217, 185, 81, 0.4);
 }
 
 .section {
@@ -45,299 +388,182 @@ body {
 
 .section.active {
     display: block;
+    animation: fadeIn 0.35s ease;
 }
 
-/* Headings with Ambient Blue Glow */
-h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 8px;
-    color: #60a5fa;
-    text-shadow: 0 0 20px rgba(96, 165, 250, 0.5), 0 0 40px rgba(96, 165, 250, 0.3);
-}
-
-.subtitle {
-    color: #94a3b8;
-    margin-bottom: 24px;
-    font-size: 1rem;
-}
-
-.branding {
-    font-size: 0.9rem;
-    color: #cbd5e1;
-    margin-bottom: 20px;
-}
-
-/* Step Indicators */
-.step-indicator {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 24px;
-}
-
-.step {
-    flex: 1;
-    font-size: 0.75rem;
-    padding: 6px 4px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    color: #64748b;
-    font-weight: 600;
-}
-
-.step.active {
-    background: #3b82f6;
-    color: #ffffff;
-    box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
-}
-
-.step.completed {
-    background: rgba(59, 130, 246, 0.2);
-    color: #60a5fa;
-}
-
-/* Form Controls */
-label {
-    display: block;
-    margin-top: 16px;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #e2e8f0;
-    text-align: left;
-}
-
-input, select {
-    width: 100%;
-    padding: 12px 16px;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    color: #ffffff;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-input:focus, select:focus {
-    border-color: #60a5fa;
-    box-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
-}
-
-select option {
-    background: #1e293b;
-    color: #ffffff;
-}
-
-/* Buttons */
-button {
-    width: 100%;
-    margin-top: 24px;
-    padding: 14px;
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-    transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
-}
-
-button:hover {
-    opacity: 0.95;
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
-}
-
-button:active {
-    transform: scale(0.98);
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .nav-buttons {
     display: flex;
-    gap: 12px;
+    gap: 14px;
+    margin-top: 22px;
 }
 
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: #cbd5e1;
-    box-shadow: none;
+.nav-buttons button {
+    flex: 1;
+    margin-top: 0;
 }
 
-.btn-danger {
-    background: #ef4444;
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-}
-
-/* Doctors Panel */
-.doctors-panel {
-    margin-top: 24px;
-    text-align: left;
-}
-
-.doctors-panel h2 {
-    font-size: 1.1rem;
-    color: #60a5fa;
-    text-shadow: 0 0 12px rgba(96, 165, 250, 0.4);
-    margin-bottom: 8px;
-}
-
-.doctors-intro {
-    font-size: 0.85rem;
-    color: #94a3b8;
-    margin-bottom: 12px;
-}
-
-.doctors-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 10px;
-}
-
-.doctor-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 10px 12px;
-    border-radius: 10px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.doctor-card:hover {
-    border-color: rgba(96, 165, 250, 0.4);
-    box-shadow: 0 0 12px rgba(96, 165, 250, 0.15);
-}
-
-.doctor-card strong {
-    display: block;
-    font-size: 0.85rem;
-    color: #f1f5f9;
-}
-
-.doctor-card span {
-    font-size: 0.75rem;
-    color: #94a3b8;
-}
-
-/* Modal Overlay */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(8px);
+.step-indicator {
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 2000;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
-.modal-box {
-    background: #1e293b;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-    width: 90%;
-    max-width: 420px;
-    padding: 24px;
-    text-align: center;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-}
-
-.modal-header {
-    margin-bottom: 16px;
-}
-
-.modal-logo-text {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: #ffffff;
-}
-
-.modal-logo-text .highlight {
-    color: #60a5fa;
-    text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
-}
-
-.modal-body h3 {
-    font-size: 1.05rem;
-    color: #f3f4f6;
-    margin-bottom: 10px;
-}
-
-.modal-body p {
-    font-size: 0.9rem;
-    color: #94a3b8;
-    line-height: 1.5;
-    margin-bottom: 8px;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    margin-top: 10px;
-}
-
-/* Result / Token Screen */
-.result-box {
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-}
-
-.token {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #60a5fa;
-    text-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
-    margin: 12px 0;
-    letter-spacing: 2px;
-}
-
-.doctor-info {
+.step {
+    padding: 8px 16px;
+    border-radius: 50px;
     background: rgba(255, 255, 255, 0.05);
-    padding: 12px;
-    border-radius: 10px;
-    margin-top: 14px;
-    text-align: left;
-    font-size: 0.9rem;
-}
-
-.admin-link {
-    margin-top: 16px;
-}
-
-.admin-link a {
-    color: #64748b;
     font-size: 0.85rem;
-    text-decoration: none;
+    color: rgba(255, 255, 255, 0.45);
+    border: 1px solid transparent;
 }
 
-.admin-link a:hover {
-    color: #94a3b8;
+.step.active {
+    background: rgba(217, 185, 81, 0.15);
+    color: #f5e6b8;
+    border-color: rgba(217, 185, 81, 0.4);
+    font-weight: 600;
 }
 
-.admin-stats {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 16px;
-    border-radius: 12px;
-    text-align: center;
-    margin-bottom: 16px;
-}
-
-.admin-stats .number {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #60a5fa;
-    text-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
+.step.completed {
+    background: rgba(217, 185, 81, 0.1);
+    color: #D9B951;
+    border-color: rgba(217, 185, 81, 0.25);
 }
 
 footer {
-    margin-top: 24px;
-    font-size: 0.75rem;
-    color: #64748b;
     text-align: center;
+    margin-top: 28px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* ==========================================
+   8. ADMIN DASHBOARD
+   ================================---------- */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-table th {
+    background: rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+    color: #D9B951;
+}
+
+.admin-table tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.admin-stats {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 18px 22px;
+    border-radius: 14px;
+    flex: 1;
+    min-width: 130px;
+    text-align: center;
+    border: 1px solid rgba(217, 185, 81, 0.15);
+}
+
+.stat-box .number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #D9B951;
+    text-shadow: 0 0 14px rgba(217, 185, 81, 0.5);
+}
+
+.empty-msg {
+    text-align: center;
+    padding: 50px 20px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.admin-link {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.admin-link a {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.admin-link a:hover {
+    color: #D9B951;
+}
+
+/* ==========================================
+   9. RESPONSIVE & PRINT STYLES
+   ================================---------- */
+@media (max-width: 600px) {
+    h1 { font-size: 1.7rem; }
+    .card { padding: 28px 18px; }
+    .watermark { font-size: 2.8rem; }
+    .nav-buttons { flex-direction: column; }
+    .admin-table { font-size: 0.78rem; }
+    .admin-table th, .admin-table td { padding: 8px 5px; }
+    .doctors-panel { padding: 17px 13px; }
+    .doctors-list { grid-template-columns: 1fr; }
+}
+
+@media print {
+    body, html {
+        background: #ffffff !important;
+    }
+    .watermark,
+    .nav-buttons,
+    .step-indicator {
+        display: none !important;
+    }
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+        background: #ffffff !important;
+        padding: 0 !important;
+    }
+    .container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .result-box {
+        display: block !important;
+        background: #ffffff !important;
+        border: 2px solid #D9B951 !important;
+        border-left: 8px solid #D9B951 !important;
+    }
+    * {
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+    }
+    .token {
+        background: #f4f0df !important;
+        color: #222 !important;
+        border: 1px solid #D9B951 !important;
+    }
 }

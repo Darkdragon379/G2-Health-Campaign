@@ -84,7 +84,7 @@ function generateToken() {
     let counter = "";
     let doctor = "";
 
-    // Added explicit mapping for Diabetes / Sugar issues
+    // Explicit mapping for conditions & doctors
     if (conditionLower.includes("diabetes") || conditionLower.includes("sugar") || conditionLower.includes("endocrine")) {
         counter = "Counter 6 (Endocrine & Nutrition)";
         doctor = "Dr. Arnav Chhetri (Nutrition & Metabolic Specialist)";
@@ -135,7 +135,6 @@ function generateToken() {
     document.getElementById('tokenDisplay').textContent = token;
     document.getElementById('displayLocation').textContent = location;
     
-    // If you have a designated element for time slot display on the result screen, update it here:
     const slotDisplay = document.getElementById('displayTimeSlot');
     if (slotDisplay) slotDisplay.innerHTML = `<strong>Reporting Time Slot:</strong> ${timeSlot}`;
 
@@ -157,8 +156,97 @@ function resetForm() {
     showSection('welcome');
 }
 
-// ========== ADMIN ==========
-const demoPatients = [{"token": "DEMO-0001", "name": "Aarav Verma", "age": 34, "condition": "Routine check-up", "history": "No significant history reported", "medications": "None listed", "tests": "Sample blood count report: available", "doctor": "Dr. Advait Updhyay", "location": "Jalandhar - Punjab"}, {"token": "DEMO-0002", "name": "Meera Kapoor", "age": 52, "condition": "Diabetes follow-up", "history": "Type 2 diabetes (fictional history)", "medications": "Existing prescription on file; no dosage shown", "tests": "Sample glucose report: available", "doctor": "Dr. Dhruv Chaturvedi", "location": "Delhi - Central Park"}, {"token": "DEMO-0003", "name": "Rohan Das", "age": 41, "condition": "Knee discomfort", "history": "Previous knee injury (fictional history)", "medications": "None listed", "tests": "Sample knee imaging report: available", "doctor": "Dr. Arnav Sharma", "location": "Mumbai - Bandra"}, {"token": "DEMO-0004", "name": "Isha Rao", "age": 29, "condition": "Routine eye examination", "history": "Uses corrective lenses", "medications": "None listed", "tests": "Sample vision screening: available", "doctor": "Dr. Arnav Chhetri", "location": "Bangalore - MG Road"}, {"token": "DEMO-0005", "name": "Kabir Sen", "age": 38, "condition": "Skin consultation", "history": "Recurring skin irritation (fictional history)", "medications": "Previous prescription on file; no dosage shown", "tests": "Sample dermatology notes: available", "doctor": "Dr. Ayush Dehuri", "location": "Kolkata - Salt Lake"}, {"token": "DEMO-0006", "name": "Naina Joshi", "age": 61, "condition": "General review", "history": "Prior routine check-ups", "medications": "Medication list pending review", "tests": "Sample prior visit summary: available", "doctor": "Dr. Divyansh Sharma", "location": "Pune - Shivaji Nagar"}, {"token": "DEMO-0007", "name": "Dev Malhotra", "age": 46, "condition": "Blood pressure follow-up", "history": "Hypertension (fictional history)", "medications": "Existing prescription on file; no dosage shown", "tests": "Sample blood pressure log: available", "doctor": "Dr. Dhruv Chaturvedi", "location": "Chandigarh - Sector 17"}, {"token": "DEMO-0008", "name": "Tara Nair", "age": 25, "condition": "General consultation", "history": "No significant history reported", "medications": "None listed", "tests": "Sample previous consultation notes: available", "doctor": "Dr. Advait Updhyay", "location": "Kochi - Marine Drive"}];
+// ========== ADMIN (CORRECTED DEMO PATIENTS) ==========
+const demoPatients = [
+    {
+        "token": "DEMO-0001", 
+        "name": "Aarav Verma", 
+        "age": 34, 
+        "condition": "General check-up", 
+        "history": "No significant history reported", 
+        "medications": "None listed", 
+        "tests": "Sample blood count report: available", 
+        "doctor": "Dr. Advait Updhyay (General Physician)", 
+        "location": "Jalandhar - Punjab"
+    }, 
+    {
+        "token": "DEMO-0002", 
+        "name": "Meera Kapoor", 
+        "age": 52, 
+        "condition": "Diabetes Checkup", 
+        "history": "Type 2 diabetes (fictional history)", 
+        "medications": "Existing prescription on file; no dosage shown", 
+        "tests": "Sample glucose report: available", 
+        "doctor": "Dr. Arnav Chhetri (Nutrition & Metabolic Specialist)", 
+        "location": "Delhi - Central Park"
+    }, 
+    {
+        "token": "DEMO-0003", 
+        "name": "Rohan Das", 
+        "age": 41, 
+        "condition": "Joint/Bone Pain", 
+        "history": "Previous knee injury (fictional history)", 
+        "medications": "None listed", 
+        "tests": "Sample knee imaging report: available", 
+        "doctor": "Dr. Arnav Sharma (Orthopedic Specialist)", 
+        "location": "Mumbai - Bandra"
+    }, 
+    {
+        "token": "DEMO-0004", 
+        "name": "Isha Rao", 
+        "age": 29, 
+        "condition": "Eye Problem", 
+        "history": "Uses corrective lenses", 
+        "medications": "None listed", 
+        "tests": "Sample vision screening: available", 
+        "doctor": "Dr. Dhruv Chaturvedi (Eye Specialist)", 
+        "location": "Bangalore - MG Road"
+    }, 
+    {
+        "token": "DEMO-0005", 
+        "name": "Kabir Sen", 
+        "age": 38, 
+        "condition": "Skin Issue", 
+        "history": "Recurring skin irritation (fictional history)", 
+        "medications": "Previous prescription on file; no dosage shown", 
+        "tests": "Sample dermatology notes: available", 
+        "doctor": "Dr. Ayush Dehury (Dermatologist)", 
+        "location": "Kolkata - Salt Lake"
+    }, 
+    {
+        "token": "DEMO-0006", 
+        "name": "Naina Joshi", 
+        "age": 61, 
+        "condition": "General Fever", 
+        "history": "Prior routine check-ups", 
+        "medications": "Medication list pending review", 
+        "tests": "Sample prior visit summary: available", 
+        "doctor": "Dr. Advait Updhyay (General Physician)", 
+        "location": "Pune - Shivaji Nagar"
+    }, 
+    {
+        "token": "DEMO-0007", 
+        "name": "Dev Malhotra", 
+        "age": 46, 
+        "condition": "Diet/Nutrition Consultation", 
+        "history": "Metabolic follow-up (fictional history)", 
+        "medications": "Existing prescription on file; no dosage shown", 
+        "tests": "Sample blood pressure log: available", 
+        "doctor": "Dr. Arnav Chhetri (Dietologist)", 
+        "location": "Chandigarh - Sector 17"
+    }, 
+    {
+        "token": "DEMO-0008", 
+        "name": "Tara Nair", 
+        "age": 25, 
+        "condition": "General consultation", 
+        "history": "No significant history reported", 
+        "medications": "None listed", 
+        "tests": "Sample previous consultation notes: available", 
+        "doctor": "Dr. Advait Updhyay (General Physician)", 
+        "location": "Kochi - Marine Drive"
+    }
+];
 
 function escapeText(value) {
     return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

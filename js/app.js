@@ -59,7 +59,7 @@ function goToRegistration() {
     showSection('registration');
 }
 
-// ========== TOKEN + RECOMMENDATION ==========
+// ========== TOKEN + RECOMMENDATION + TIME MANAGEMENT ==========
 function generateToken() {
     const name = document.getElementById('fullName').value.trim();
     const age = document.getElementById('age').value;
@@ -67,6 +67,7 @@ function generateToken() {
     const gender = document.getElementById('gender').value;
     const condition = document.getElementById('healthCondition').value.trim();
     const location = document.getElementById('campLocation').value;
+    const timeSlot = document.getElementById('timeSlot') ? document.getElementById('timeSlot').value : "09:00 AM - 11:00 AM";
 
     if (!name) {
         alert("Please enter your full name");
@@ -83,11 +84,16 @@ function generateToken() {
     let counter = "";
     let doctor = "";
 
-    if (conditionLower.includes("eye")) {
+    // Added explicit mapping for Diabetes / Sugar issues
+    if (conditionLower.includes("diabetes") || conditionLower.includes("sugar") || conditionLower.includes("endocrine")) {
+        counter = "Counter 6 (Endocrine & Nutrition)";
+        doctor = "Dr. Arnav Chhetri (Nutrition & Metabolic Specialist)";
+    }
+    else if (conditionLower.includes("eye") || conditionLower.includes("vision")) {
         counter = "Counter 4 (Ophthalmology)";
         doctor = "Dr. Dhruv Chaturvedi (Eye Specialist)";
     } 
-    else if (conditionLower.includes("fever") || conditionLower.includes("general")) {
+    else if (conditionLower.includes("fever") || conditionLower.includes("general") || conditionLower.includes("cold")) {
         counter = "Counter 1 (General Medicine)";
         doctor = "Dr. Advait Updhyay (General Physician)";
     }
@@ -108,7 +114,7 @@ function generateToken() {
         doctor = "Dr. Advait Updhyay (General Physician)";
     }
 
-    // Save
+    // Save with Time Slot included
     saveRegistration({
         id: Date.now(),
         token,
@@ -120,6 +126,7 @@ function generateToken() {
         location,
         counter,
         doctor,
+        timeSlot,
         time: new Date().toLocaleString()
     });
 
@@ -127,6 +134,11 @@ function generateToken() {
     document.getElementById('displayName').textContent = name;
     document.getElementById('tokenDisplay').textContent = token;
     document.getElementById('displayLocation').textContent = location;
+    
+    // If you have a designated element for time slot display on the result screen, update it here:
+    const slotDisplay = document.getElementById('displayTimeSlot');
+    if (slotDisplay) slotDisplay.innerHTML = `<strong>Reporting Time Slot:</strong> ${timeSlot}`;
+
     document.getElementById('counterInfo').innerHTML = `<strong>Please visit:</strong> ${counter}`;
     document.getElementById('doctorInfo').innerHTML = `<strong>Assigned Doctor:</strong> ${doctor}`;
 
@@ -141,6 +153,7 @@ function resetForm() {
     document.getElementById('gender').value = '';
     document.getElementById('healthCondition').value = '';
     document.getElementById('campLocation').value = '';
+    if(document.getElementById('timeSlot')) document.getElementById('timeSlot').selectedIndex = 0;
     showSection('welcome');
 }
 
@@ -159,11 +172,13 @@ function renderAdmin() {
     demoPatients.forEach(r => {
         html += '<tr>' + fields.map(key => '<td>' + escapeText(r[key]) + '</td>').join('') + '</tr>';
     });
-    html += '</tbody></table></div><h2 style="margin:26px 0 12px;">Local Browser Registrations (' + local.length.toLocaleString('en-IN') + ')</h2><p style="opacity:0.7; margin-bottom:14px;">Separate from the demo count.</p>';
+    html += '</tbody></table></div><h2 style="margin:26px 0 12px;">Local Browser Registrations (' + local.length.toLocaleString('en-IN') + ')</h2><p style="opacity:0.7; margin-bottom:14px;">Separate from the demo count with time tracking.</p>';
     if (!local.length) html += '<div class="empty-msg">No local registrations yet.</div>';
     else {
-        html += '<div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Token</th><th>Name</th><th>Age</th><th>Condition</th><th>Location</th><th>Doctor</th><th>Time</th></tr></thead><tbody>';
-        local.forEach(r => { html += '<tr>' + ['token','name','age','condition','location','doctor','time'].map(k => '<td>' + escapeText(r[k]) + '</td>').join('') + '</tr>'; });
+        html += '<div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Token</th><th>Name</th><th>Age</th><th>Condition</th><th>Location</th><th>Doctor</th><th>Time Slot</th><th>Registered At</th></tr></thead><tbody>';
+        local.forEach(r => { 
+            html += '<tr>' + ['token','name','age','condition','location','doctor','timeSlot','time'].map(k => '<td>' + escapeText(r[k] || '-') + '</td>').join('') + '</tr>'; 
+        });
         html += '</tbody></table></div>';
     }
     document.getElementById('adminContent').innerHTML = html;

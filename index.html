@@ -197,55 +197,25 @@
     <div class="container">
         <div class="card">
 
-            <!-- WELCOME -->
+            <!-- WELCOME / HOME -->
             <div id="welcome" class="section active">
                 <div class="step-indicator">
-                    <div class="step active">1. Welcome</div>
-                    <div class="step">2. Location</div>
-                    <div class="step">3. Register</div>
-                    <div class="step">4. Token</div>
+                    <div class="step active">Home</div>
                 </div>
 
-                <h1>9C Boys G2<br>Health Campaign</h1>
-                <p class="subtitle">Your health is our priority.<br>Free check-ups • Expert doctors • Instant guidance</p>
-                <p class="branding" id="about">Design & Concept Powered exclusively by <strong>@9C Boys G2</strong></p>
-
-                <section class="doctors-panel" aria-labelledby="senior-doctor-title">
-                    <h2 id="senior-doctor-title">Senior &amp; Advising Doctor</h2>
-                    <div class="doctor-card">
-                        <strong>Dr. Divyansh Sharma</strong>
-                        <span>Senior and Advising Doctor</span>
+                <div style="text-align: center; padding: 40px 10px;">
+                    <h1 style="font-size: 2.8rem; line-height: 1.2; margin-bottom: 20px;">Empowering Communities,<br><span style="color: #60a5fa;">Helping People Get Care.</span></h1>
+                    <p class="subtitle" style="font-size: 1.15rem; max-width: 500px; margin: 0 auto 32px auto;">
+                        Welcome to the official 9C Boys G2 Health Campaign portal. Access free check-ups, instant registration tokens, and dedicated medical specialists effortlessly.
+                    </p>
+                    <div style="display: flex; gap: 14px; justify-content: center; max-width: 400px; margin: 0 auto;">
+                        <button onclick="showSection('location')" style="margin-top: 0; padding: 16px 28px;">Register Now →</button>
                     </div>
-                </section>
+                </div>
 
-                <section class="doctors-panel" id="doctors" aria-labelledby="participating-doctors-title">
-                    <h2 id="participating-doctors-title">Participating Doctors</h2>
-                    <p class="doctors-intro">Meet the medical professionals supporting this health campaign</p>
-                    <div class="doctors-list">
-                        <div class="doctor-card"><strong>Dr. Advait Upadhyay</strong><span>General Physician</span></div>
-                        <div class="doctor-card"><strong>Dr. Dhruv Chaturvedi</strong><span>Eye Specialist</span></div>
-                        <div class="doctor-card"><strong>Dr. Arnav Sharma</strong><span>Orthopedic Specialist</span></div>
-                        <div class="doctor-card"><strong>Dr. Arnav Chhetri</strong><span>Dietologist</span></div>
-                        <div class="doctor-card"><strong>Dr. Ayush Dehury</strong><span>Dermatologist</span></div>
-                        <div class="doctor-card"><strong>Dr. Harshit Singh</strong><span>Cardiologist</span></div>
-                    </div>
-                </section>
-                
-                <button onclick="showSection('location')">Start Registration →</button>
-
-                <div class="admin-link">
+                <div class="admin-link" style="margin-top: 40px;">
                     <a href="#" onclick="openAdmin(); return false;">Admin Panel</a>
                 </div>
-
-                <section class="doctors-panel" aria-labelledby="bring-items-title">
-                    <h2 id="bring-items-title">What to Bring</h2>
-                    <p class="doctors-intro">Please bring the following items when visiting the health camp:</p>
-                    <ul style="text-align: left; padding-left: 22px; line-height: 1.8; color: #ddd;">
-                        <li><strong>Past medical records</strong> — previous reports, test results, and relevant medical documents.</li>
-                        <li><strong>ID proof</strong> — a valid identification document.</li>
-                        <li><strong>Regular prescription list</strong> — your current prescriptions or a list of medicines you take regularly.</li>
-                    </ul>
-                </section>
 
                 <footer>Local Storage Only • Secure & Private</footer>
             </div>
@@ -272,6 +242,52 @@
                 <div class="nav-buttons">
                     <button class="btn-secondary" onclick="showSection('welcome')">← Back to Home</button>
                     <button onclick="showSection('location')">Start Registration →</button>
+                </div>
+            </div>
+            <!-- DOCTORS DIRECTORY -->
+            <div id="doctors-section" class="section">
+                <div class="step-indicator">
+                    <div class="step completed">1. Home</div>
+                    <div class="step active">Medical Team</div>
+                </div>
+
+                <h1>Our Medical Specialists</h1>
+                <p class="subtitle">Meet the expert professionals supporting the G2 Health Campaign</p>
+
+                <section class="doctors-panel" aria-labelledby="senior-doctor-title" style="margin-top: 0;">
+                    <h2 id="senior-doctor-title">Senior &amp; Advising Doctor</h2>
+                    <div class="doctor-card" style="margin-top: 10px;">
+                        <strong>Dr. Divyansh Sharma</strong>
+                        <span>Senior and Advising Doctor</span>
+                    </div>
+                </section>
+
+                <section class="doctors-panel" aria-labelledby="participating-doctors-title">
+                    <h2 id="participating-doctors-title">Participating Specialists</h2>
+                    <p class="doctors-intro">Assigned based on patient health conditions during registration</p>
+                    <div class="doctors-list">
+                        <div class="doctor-card"><strong>Dr. Advait Upadhyay</strong><span>General Physician</span></div>
+                        <div class="doctor-card"><strong>Dr. Dhruv Chaturvedi</strong><span>Eye Specialist</span></div>
+                        <div class="doctor-card"><strong>Dr. Arnav Sharma</strong><span>Orthopedic Specialist</span></div>
+                        <div class="doctor-card"><strong>Dr. Arnav Chhetri</strong><span>Dietologist</span></div>
+                        <div class="doctor-card"><strong>Dr. Ayush Dehury</strong><span>Dermatologist</span></div>
+                        <div class="doctor-card"><strong>Dr. Harshit Singh</strong><span>Cardiologist</span></div>
+                    </div>
+                </section>
+
+                <section class="doctors-panel" aria-labelledby="bring-items-title">
+                    <h2 id="bring-items-title">What to Bring to Your Consultation</h2>
+                    <p class="doctors-intro">Please bring the following items when visiting your assigned doctor:</p>
+                    <ul style="text-align: left; padding-left: 22px; line-height: 1.8; color: #ddd; font-size: 0.9rem;">
+                        <li><strong>Past medical records</strong> — previous reports, test results, and relevant medical documents.</li>
+                        <li><strong>ID proof</strong> — a valid identification document.</li>
+                        <li><strong>Regular prescription list</strong> — your current prescriptions or a list of medicines you take regularly.</li>
+                    </ul>
+                </section>
+
+                <div class="nav-buttons">
+                    <button class="btn-secondary" onclick="showSection('welcome')">← Back to Home</button>
+                    <button onclick="showSection('location')">Register Now →</button>
                 </div>
             </div>
             <!-- LOCATION -->

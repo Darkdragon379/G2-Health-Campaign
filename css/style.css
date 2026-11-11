@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+/* ==========================================
+   1. ROOT & GLOBAL RESETS
+   ================================---------- */
 * {
     margin: 0;
     padding: 0;
@@ -15,32 +18,33 @@ body {
     overflow-x: hidden;
 }
 
-/* Soft gold glow effects */
-body::before {
+/* Soft gold ambient glow effects */
+body::before,
+body::after {
     content: '';
     position: fixed;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+body::before {
     width: 520px;
     height: 520px;
     background: radial-gradient(circle, rgba(212, 175, 55, 0.09) 0%, transparent 70%);
     top: -160px;
     right: -120px;
-    z-index: 0;
-    pointer-events: none;
 }
 
 body::after {
-    content: '';
-    position: fixed;
     width: 420px;
     height: 420px;
     background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
     bottom: -120px;
     left: -100px;
-    z-index: 0;
-    pointer-events: none;
 }
 
-/* Watermark */
+/* Background Watermark */
 .watermark {
     position: fixed;
     top: 50%;
@@ -56,6 +60,9 @@ body::after {
     letter-spacing: 6px;
 }
 
+/* ==========================================
+   2. LAYOUT & CONTAINERS
+   ================================---------- */
 .container {
     max-width: 920px;
     margin: 40px auto;
@@ -74,6 +81,9 @@ body::after {
     border: 1px solid rgba(212, 175, 55, 0.15);
 }
 
+/* ==========================================
+   3. TYPOGRAPHY & HEADINGS
+   ================================---------- */
 h1 {
     text-align: center;
     font-size: 2.35rem;
@@ -112,6 +122,9 @@ label {
     color: rgba(255, 255, 255, 0.85);
 }
 
+/* ==========================================
+   4. FORM CONTROLS & INPUTS
+   ================================---------- */
 input, select, textarea {
     width: 100%;
     padding: 14px 16px;
@@ -144,6 +157,9 @@ textarea {
     resize: vertical;
 }
 
+/* ==========================================
+   5. BUTTONS (STANDARD)
+   ================================---------- */
 button {
     width: 100%;
     padding: 15px;
@@ -173,6 +189,7 @@ button:hover {
 .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.12);
     box-shadow: none;
+    transform: none;
 }
 
 .btn-danger {
@@ -182,8 +199,12 @@ button:hover {
 
 .btn-danger:hover {
     box-shadow: 0 12px 28px rgba(225, 29, 72, 0.35);
+    transform: none;
 }
 
+/* ==========================================
+   6. SECTIONS, STEPS & RESULTS
+   ================================---------- */
 .result-box {
     display: none;
     margin-top: 28px;
@@ -281,7 +302,9 @@ footer {
     color: rgba(255, 255, 255, 0.35);
 }
 
-/* Participating doctors on the welcome screen */
+/* ==========================================
+   7. DOCTORS PANEL & CARDS
+   ================================---------- */
 .doctors-panel {
     margin: 26px 0 8px;
     padding: 22px;
@@ -289,42 +312,50 @@ footer {
     border-radius: 18px;
     background: rgba(0, 0, 0, 0.22);
 }
+
 .doctors-panel h2 {
     color: #d4af37;
     text-align: center;
     font-size: 1.3rem;
     margin-bottom: 6px;
 }
+
 .doctors-intro {
     text-align: center;
     color: rgba(255, 255, 255, 0.58);
     font-size: 0.9rem;
     margin-bottom: 16px;
 }
+
 .doctors-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
 }
+
 .doctor-card {
     padding: 13px 15px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.045);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
 .doctor-card strong {
     display: block;
     color: #f5e6b8;
     font-size: 0.96rem;
     margin-bottom: 4px;
 }
+
 .doctor-card span {
     color: rgba(255, 255, 255, 0.62);
     font-size: 0.84rem;
     line-height: 1.4;
 }
 
-/* Admin */
+/* ==========================================
+   8. ADMIN DASHBOARD STYLES
+   ================================---------- */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
@@ -394,7 +425,9 @@ footer {
     color: #d4af37;
 }
 
-/* Modal Overlay & Navy Theme */
+/* ==========================================
+   9. MODAL POPUP (NAVY BLUE THEME)
+   ================================---------- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -406,6 +439,7 @@ footer {
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    backdrop-filter: blur(5px);
 }
 
 .modal-box {
@@ -417,7 +451,6 @@ footer {
     padding: 28px;
     text-align: center;
     box-shadow: 0 15px 35px rgba(0,0,0,0.9);
-    font-family: Arial, sans-serif;
     color: #fff;
 }
 
@@ -426,14 +459,9 @@ footer {
     font-weight: 900;
 }
 
-.modal-logo-text .highlight,
-.modal-body h3,
-.btn-primary {
+.modal-logo-text .highlight {
     background-color: #004080;
     color: #ffffff;
-}
-
-.modal-logo-text .highlight {
     padding: 2px 8px;
     border-radius: 4px;
     margin-left: 2px;
@@ -444,6 +472,8 @@ footer {
     font-size: 15px;
     padding: 4px;
     border-radius: 4px;
+    background-color: #004080;
+    color: #ffffff;
 }
 
 .modal-body p {
@@ -453,43 +483,54 @@ footer {
     margin-bottom: 20px;
 }
 
-.btn-primary {
-    border: none;
-    font-weight: bold;
-    padding: 12px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    width: 100%;
-    transition: background 0.2s ease;
+/* Specific scoping to safely prevent global button overrides */
+.modal-box .btn-primary {
+    background: #004080 !important;
+    background-color: #004080 !important;
+    color: #ffffff !important;
+    border: none !important;
+    font-weight: bold !important;
+    padding: 12px 20px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    width: 100% !important;
+    margin-top: 15px !important;
+    transform: none !important;
+    box-shadow: none !important;
+    transition: background 0.2s ease !important;
 }
 
-.btn-primary:hover {
-    background-color: #003366;
+.modal-box .btn-primary:hover {
+    background: #003366 !important;
+    background-color: #003366 !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
+/* ==========================================
+   10. RESPONSIVE MEDIA QUERIES
+   ================================---------- */
 @media (max-width: 600px) {
-    .doctors-panel { padding: 17px 13px; }
-    .doctors-list { grid-template-columns: 1fr; }
     h1 { font-size: 1.7rem; }
     .card { padding: 28px 18px; }
     .watermark { font-size: 2.8rem; }
     .nav-buttons { flex-direction: column; }
     .admin-table { font-size: 0.78rem; }
     .admin-table th, .admin-table td { padding: 8px 5px; }
+    .doctors-panel { padding: 17px 13px; }
+    .doctors-list { grid-template-columns: 1fr; }
 }
 
-/* Print Styles */
+/* ==========================================
+   11. PRINT STYLES
+   ================================---------- */
 @media print {
     body, html {
         background: #ffffff !important;
     }
-    .watermark {
-        display: none !important;
-    }
-    .nav-buttons {
-        display: none !important;
-    }
+    .watermark,
+    .nav-buttons,
     .step-indicator {
         display: none !important;
     }

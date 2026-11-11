@@ -199,7 +199,7 @@ button:hover {
 }
 
 /* ==========================================
-   5. DOCTORS PANEL & CARDS (RESTORED)
+   5. DOCTORS PANEL & CARDS
    ================================---------- */
 .doctors-panel {
     margin: 26px 0 8px;
@@ -250,7 +250,7 @@ button:hover {
 }
 
 /* ==========================================
-   6. CAMPAIGN MODAL (ISOLATED NAVY THEME)
+   6. CAMPAIGN MODAL (ORANGE THEME)
    ================================---------- */
 #campaign-modal.modal-overlay {
     position: fixed;
@@ -268,7 +268,7 @@ button:hover {
 
 #campaign-modal .modal-box {
     background-color: #111111;
-    border: 1px solid #222;
+    border: 1px solid #332211;
     width: 90%;
     max-width: 420px;
     border-radius: 10px;
@@ -283,8 +283,9 @@ button:hover {
     font-weight: 900;
 }
 
+/* Completely orange header highlight styling */
 #campaign-modal .modal-logo-text .highlight {
-    background-color: #004080;
+    background-color: #ff6600;
     color: #ffffff;
     padding: 2px 8px;
     border-radius: 4px;
@@ -294,9 +295,9 @@ button:hover {
 #campaign-modal .modal-body h3 {
     margin: 18px 0 10px;
     font-size: 15px;
-    padding: 4px;
+    padding: 6px;
     border-radius: 4px;
-    background-color: #004080;
+    background-color: #ff6600;
     color: #ffffff;
 }
 
@@ -308,8 +309,8 @@ button:hover {
 }
 
 #campaign-modal button {
-    background: #004080 !important;
-    background-color: #004080 !important;
+    background: #ff6600 !important;
+    background-color: #ff6600 !important;
     color: #ffffff !important;
     border: none !important;
     font-weight: bold !important;
@@ -325,8 +326,8 @@ button:hover {
 }
 
 #campaign-modal button:hover {
-    background: #003366 !important;
-    background-color: #003366 !important;
+    background: #e65c00 !important;
+    background-color: #e65c00 !important;
     transform: none !important;
     box-shadow: none !important;
 }

@@ -66,7 +66,7 @@
                     <h2 id="participating-doctors-title">Participating Doctors</h2>
                     <p class="doctors-intro">Meet the medical professionals supporting this health campaign</p>
                     <div class="doctors-list">
-                        <div class="doctor-card"><strong>Dr. Advait Updhyay</strong><span>General Physician</span></div>
+                        <div class="doctor-card"><strong>Dr. Advait Upadhyay</strong><span>General Physician</span></div>
                         <div class="doctor-card"><strong>Dr. Dhruv Chaturvedi</strong><span>Eye Specialist</span></div>
                         <div class="doctor-card"><strong>Dr. Arnav Sharma</strong><span>Orthopedic Specialist</span></div>
                         <div class="doctor-card"><strong>Dr. Arnav Chhetri</strong><span>Dietologist</span></div>
@@ -163,10 +163,11 @@
 
                 <label for="timeSlot">Preferred Reporting Time Slot *</label>
                 <select id="timeSlot">
-                    <option value="09:00 AM - 11:00 AM">Morning Slot: 09:00 AM - 11:00 AM</option>
-                    <option value="11:00 AM - 01:00 PM">Late Morning Slot: 11:00 AM - 01:00 PM</option>
-                    <option value="02:00 PM - 04:00 PM">Afternoon Slot: 02:00 PM - 04:00 PM</option>
-                    <option value="04:00 PM - 06:00 PM">Evening Slot: 04:00 PM - 06:00 PM</option>
+                    <option value="" disabled selected>Select your time slot...</option>
+                    <option value="09:00 AM - 11:00 AM" class="slot-morning">Morning Slot: 09:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 01:00 PM" class="slot-morning">Late Morning Slot: 11:00 AM - 01:00 PM</option>
+                    <option value="02:00 PM - 04:00 PM" class="slot-evening">Afternoon Slot: 02:00 PM - 04:00 PM</option>
+                    <option value="04:00 PM - 06:00 PM" class="slot-evening">Evening Slot: 04:00 PM - 06:00 PM</option>
                 </select>
 
                 <label for="healthCondition">Health Condition / Symptoms *</label>

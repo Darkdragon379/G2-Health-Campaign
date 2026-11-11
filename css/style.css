@@ -278,18 +278,22 @@ button:hover {
     color: #fff;
 }
 
+/* Entire header block completely in solid orange */
 #campaign-modal .modal-logo-text {
+    background-color: #ff6600;
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 6px;
     font-size: 26px;
     font-weight: 900;
 }
 
-/* Completely orange header highlight styling */
 #campaign-modal .modal-logo-text .highlight {
-    background-color: #ff6600;
+    background-color: transparent;
     color: #ffffff;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-left: 2px;
+    padding: 0;
+    border-radius: 0;
+    margin-left: 0;
 }
 
 #campaign-modal .modal-body h3 {

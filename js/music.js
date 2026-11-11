@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     audio.preload = 'auto';
     
     // Set background music volume (0.0 to 1.0 -> 0.3 is 30% volume)
-    audio.volume = 0.3; 
+    audio.volume = 0.1; 
 
     document.body.appendChild(audio);
 

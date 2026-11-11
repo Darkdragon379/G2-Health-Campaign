@@ -1,79 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* Modal Overlay & Navy Theme */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.modal-box {
-    background-color: #111111;
-    border: 1px solid #222;
-    width: 90%;
-    max-width: 420px;
-    border-radius: 10px;
-    padding: 28px;
-    text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.9);
-    font-family: Arial, sans-serif;
-    color: #fff;
-}
-
-.modal-logo-text {
-    font-size: 26px;
-    font-weight: 900;
-}
-
-/* Navy Blue Accent */
-.modal-logo-text .highlight,
-.modal-body h3,
-.btn-primary {
-    background-color: #004080;
-    color: #ffffff;
-}
-
-.modal-logo-text .highlight {
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-left: 2px;
-}
-
-.modal-body h3 {
-    margin: 18px 0 10px;
-    font-size: 15px;
-    padding: 4px;
-    border-radius: 4px;
-}
-
-.modal-body p {
-    font-size: 13px;
-    color: #999999;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.btn-primary {
-    border: none;
-    font-weight: bold;
-    padding: 12px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    width: 100%;
-    transition: background 0.2s ease;
-}
-
-.btn-primary:hover {
-    background-color: #003366;
-}
 * {
     margin: 0;
     padding: 0;
@@ -397,10 +323,6 @@ footer {
     font-size: 0.84rem;
     line-height: 1.4;
 }
-@media (max-width: 600px) {
-    .doctors-panel { padding: 17px 13px; }
-    .doctors-list { grid-template-columns: 1fr; }
-}
 
 /* Admin */
 .admin-table {
@@ -472,7 +394,83 @@ footer {
     color: #d4af37;
 }
 
+/* Modal Overlay & Navy Theme */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-box {
+    background-color: #111111;
+    border: 1px solid #222;
+    width: 90%;
+    max-width: 420px;
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+.modal-logo-text {
+    font-size: 26px;
+    font-weight: 900;
+}
+
+.modal-logo-text .highlight,
+.modal-body h3,
+.btn-primary {
+    background-color: #004080;
+    color: #ffffff;
+}
+
+.modal-logo-text .highlight {
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 2px;
+}
+
+.modal-body h3 {
+    margin: 18px 0 10px;
+    font-size: 15px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.modal-body p {
+    font-size: 13px;
+    color: #999999;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    border: none;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+    transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #003366;
+}
+
 @media (max-width: 600px) {
+    .doctors-panel { padding: 17px 13px; }
+    .doctors-list { grid-template-columns: 1fr; }
     h1 { font-size: 1.7rem; }
     .card { padding: 28px 18px; }
     .watermark { font-size: 2.8rem; }

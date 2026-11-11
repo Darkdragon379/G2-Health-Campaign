@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 /* ==========================================
-   1. ROOT & GLOBAL RESETS
+   1. GLOBAL & RESET STYLES
    ================================---------- */
 * {
     margin: 0;
@@ -18,7 +18,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Soft gold ambient glow effects */
+/* Ambient background glows */
 body::before,
 body::after {
     content: '';
@@ -44,7 +44,6 @@ body::after {
     left: -100px;
 }
 
-/* Background Watermark */
 .watermark {
     position: fixed;
     top: 50%;
@@ -61,7 +60,7 @@ body::after {
 }
 
 /* ==========================================
-   2. LAYOUT & CONTAINERS
+   2. CONTAINERS & CARDS
    ================================---------- */
 .container {
     max-width: 920px;
@@ -82,7 +81,7 @@ body::after {
 }
 
 /* ==========================================
-   3. TYPOGRAPHY & HEADINGS
+   3. TYPOGRAPHY & FORMS
    ================================---------- */
 h1 {
     text-align: center;
@@ -122,9 +121,6 @@ label {
     color: rgba(255, 255, 255, 0.85);
 }
 
-/* ==========================================
-   4. FORM CONTROLS & INPUTS
-   ================================---------- */
 input, select, textarea {
     width: 100%;
     padding: 14px 16px;
@@ -135,11 +131,6 @@ input, select, textarea {
     font-size: 1rem;
     outline: none;
     transition: border-color 0.2s, background 0.2s;
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: rgba(255, 255, 255, 0.35);
 }
 
 input:focus, select:focus, textarea:focus {
@@ -158,7 +149,7 @@ textarea {
 }
 
 /* ==========================================
-   5. BUTTONS (STANDARD)
+   4. STANDARD BUTTONS
    ================================---------- */
 button {
     width: 100%;
@@ -172,7 +163,6 @@ button {
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-    letter-spacing: 0.3px;
 }
 
 button:hover {
@@ -186,24 +176,96 @@ button:hover {
     color: #fff;
 }
 
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: none;
-    transform: none;
-}
-
 .btn-danger {
     background: linear-gradient(135deg, #e11d48, #be123c);
     color: #fff;
 }
 
-.btn-danger:hover {
-    box-shadow: 0 12px 28px rgba(225, 29, 72, 0.35);
-    transform: none;
+/* ==========================================
+   5. CAMPAIGN MODAL (ISOLATED NAVY THEME)
+   ================================---------- */
+#campaign-modal.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+#campaign-modal .modal-box {
+    background-color: #111111;
+    border: 1px solid #222;
+    width: 90%;
+    max-width: 420px;
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+    color: #fff;
+}
+
+#campaign-modal .modal-logo-text {
+    font-size: 26px;
+    font-weight: 900;
+}
+
+#campaign-modal .modal-logo-text .highlight {
+    background-color: #004080;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 2px;
+}
+
+#campaign-modal .modal-body h3 {
+    margin: 18px 0 10px;
+    font-size: 15px;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: #004080;
+    color: #ffffff;
+}
+
+#campaign-modal .modal-body p {
+    font-size: 13px;
+    color: #999999;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Isolated button style that ignores global button rules */
+#campaign-modal button {
+    background: #004080 !important;
+    background-color: #004080 !important;
+    color: #ffffff !important;
+    border: none !important;
+    font-weight: bold !important;
+    padding: 12px 20px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    width: 100% !important;
+    margin-top: 15px !important;
+    transform: none !important;
+    box-shadow: none !important;
+    letter-spacing: normal !important;
+}
+
+#campaign-modal button:hover {
+    background: #003366 !important;
+    background-color: #003366 !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 /* ==========================================
-   6. SECTIONS, STEPS & RESULTS
+   6. MISC COMPONENTS & UTILITIES
    ================================---------- */
 .result-box {
     display: none;
@@ -233,13 +295,6 @@ button:hover {
     color: #f5e6b8;
 }
 
-.doctor-info {
-    font-size: 1.1rem;
-    margin-top: 16px;
-    line-height: 1.75;
-    color: rgba(255, 255, 255, 0.85);
-}
-
 .section {
     display: none;
 }
@@ -265,36 +320,6 @@ button:hover {
     margin-top: 0;
 }
 
-.step-indicator {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.step {
-    padding: 8px 16px;
-    border-radius: 50px;
-    background: rgba(255, 255, 255, 0.05);
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.45);
-    border: 1px solid transparent;
-}
-
-.step.active {
-    background: rgba(212, 175, 55, 0.15);
-    color: #f5e6b8;
-    border-color: rgba(212, 175, 55, 0.4);
-    font-weight: 600;
-}
-
-.step.completed {
-    background: rgba(212, 175, 55, 0.1);
-    color: #d4af37;
-    border-color: rgba(212, 175, 55, 0.25);
-}
-
 footer {
     text-align: center;
     margin-top: 28px;
@@ -302,262 +327,10 @@ footer {
     color: rgba(255, 255, 255, 0.35);
 }
 
-/* ==========================================
-   7. DOCTORS PANEL & CARDS
-   ================================---------- */
-.doctors-panel {
-    margin: 26px 0 8px;
-    padding: 22px;
-    border: 1px solid rgba(212, 175, 55, 0.28);
-    border-radius: 18px;
-    background: rgba(0, 0, 0, 0.22);
-}
-
-.doctors-panel h2 {
-    color: #d4af37;
-    text-align: center;
-    font-size: 1.3rem;
-    margin-bottom: 6px;
-}
-
-.doctors-intro {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.58);
-    font-size: 0.9rem;
-    margin-bottom: 16px;
-}
-
-.doctors-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-}
-
-.doctor-card {
-    padding: 13px 15px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.045);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.doctor-card strong {
-    display: block;
-    color: #f5e6b8;
-    font-size: 0.96rem;
-    margin-bottom: 4px;
-}
-
-.doctor-card span {
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 0.84rem;
-    line-height: 1.4;
-}
-
-/* ==========================================
-   8. ADMIN DASHBOARD STYLES
-   ================================---------- */
-.admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 18px;
-    font-size: 0.9rem;
-}
-
-.admin-table th,
-.admin-table td {
-    padding: 12px 10px;
-    text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.admin-table th {
-    background: rgba(0, 0, 0, 0.3);
-    font-weight: 600;
-    color: #d4af37;
-}
-
-.admin-table tr:hover {
-    background: rgba(255, 255, 255, 0.03);
-}
-
-.admin-stats {
-    display: flex;
-    gap: 14px;
-    margin-bottom: 22px;
-    flex-wrap: wrap;
-}
-
-.stat-box {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 18px 22px;
-    border-radius: 14px;
-    flex: 1;
-    min-width: 130px;
-    text-align: center;
-    border: 1px solid rgba(212, 175, 55, 0.15);
-}
-
-.stat-box .number {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #d4af37;
-}
-
-.empty-msg {
-    text-align: center;
-    padding: 50px 20px;
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.admin-link {
-    text-align: center;
-    margin-top: 18px;
-}
-
-.admin-link a {
-    color: rgba(255, 255, 255, 0.35);
-    font-size: 0.85rem;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.admin-link a:hover {
-    color: #d4af37;
-}
-
-/* ==========================================
-   9. MODAL POPUP (NAVY BLUE THEME)
-   ================================---------- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    backdrop-filter: blur(5px);
-}
-
-.modal-box {
-    background-color: #111111;
-    border: 1px solid #222;
-    width: 90%;
-    max-width: 420px;
-    border-radius: 10px;
-    padding: 28px;
-    text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.9);
-    color: #fff;
-}
-
-.modal-logo-text {
-    font-size: 26px;
-    font-weight: 900;
-}
-
-.modal-logo-text .highlight {
-    background-color: #004080;
-    color: #ffffff;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-left: 2px;
-}
-
-.modal-body h3 {
-    margin: 18px 0 10px;
-    font-size: 15px;
-    padding: 4px;
-    border-radius: 4px;
-    background-color: #004080;
-    color: #ffffff;
-}
-
-.modal-body p {
-    font-size: 13px;
-    color: #999999;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-/* Specific scoping to safely prevent global button overrides */
-.modal-box .btn-primary {
-    background: #004080 !important;
-    background-color: #004080 !important;
-    color: #ffffff !important;
-    border: none !important;
-    font-weight: bold !important;
-    padding: 12px 20px !important;
-    border-radius: 6px !important;
-    cursor: pointer !important;
-    font-size: 14px !important;
-    width: 100% !important;
-    margin-top: 15px !important;
-    transform: none !important;
-    box-shadow: none !important;
-    transition: background 0.2s ease !important;
-}
-
-.modal-box .btn-primary:hover {
-    background: #003366 !important;
-    background-color: #003366 !important;
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-/* ==========================================
-   10. RESPONSIVE MEDIA QUERIES
-   ================================---------- */
+/* Responsive adjustments */
 @media (max-width: 600px) {
     h1 { font-size: 1.7rem; }
     .card { padding: 28px 18px; }
     .watermark { font-size: 2.8rem; }
     .nav-buttons { flex-direction: column; }
-    .admin-table { font-size: 0.78rem; }
-    .admin-table th, .admin-table td { padding: 8px 5px; }
-    .doctors-panel { padding: 17px 13px; }
-    .doctors-list { grid-template-columns: 1fr; }
-}
-
-/* ==========================================
-   11. PRINT STYLES
-   ================================---------- */
-@media print {
-    body, html {
-        background: #ffffff !important;
-    }
-    .watermark,
-    .nav-buttons,
-    .step-indicator {
-        display: none !important;
-    }
-    .card {
-        border: none !important;
-        box-shadow: none !important;
-        background: #ffffff !important;
-        padding: 0 !important;
-    }
-    .container {
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .result-box {
-        display: block !important;
-        background: #ffffff !important;
-        border: 2px solid #d4af37 !important;
-        border-left: 8px solid #d4af37 !important;
-    }
-    * {
-        color: #000000 !important;
-        -webkit-text-fill-color: #000000 !important;
-    }
-    .token {
-        background: #f4f0df !important;
-        color: #222 !important;
-        border: 1px solid #d4af37 !important;
-    }
 }

@@ -5,37 +5,193 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Primary Website Identification -->
     <title>9C Boys G2 Health Campaign | Official Portal</title>
     <meta name="title" content="9C Boys G2 Health Campaign | Official Portal">
     <meta name="description" content="Official portal for the 9C Boys G2 Health Campaign. Access free health check-ups, registration tokens, and local health resources.">
     <meta name="author" content="9C Boys / MDDeditz">
     <meta name="keywords" content="health campaign, G2 health, 9C boys, medical checkup, registration">
 
-    <!-- Open Graph / Social Media Preview Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://darkdragon379.github.io/G2-Health-Campaign/">
-    <meta property="og:title" content="9C Boys G2 Health Campaign">
-    <meta property="og:description" content="Check out our official health campaign portal for free check-ups and registrations!">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Hostinger-Inspired Navigation Bar Styles */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+        }
+
+        .header-container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .brand-logo span {
+            color: #60a5fa;
+            text-shadow: 0 0 12px rgba(96, 165, 250, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-icon-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            margin-top: 0 !important;
+            padding: 0 !important;
+        }
+
+        .search-icon-btn:hover {
+            background: rgba(96, 165, 250, 0.15);
+            border-color: rgba(96, 165, 250, 0.4);
+        }
+
+        .signin-btn {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #60a5fa;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0 !important;
+            width: auto !important;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+        }
+
+        .signin-btn:hover {
+            background: #3b82f6;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+            transform: none !important;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: auto;
+            margin-top: 0;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #0f172a;
+                flex-direction: column;
+                padding: 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Hostinger-Inspired Top Navigation Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <a class="brand-logo" onclick="showSection('welcome')">G2 <span>HEALTH</span></a>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="#" onclick="showSection('welcome'); toggleMobileMenu(); return false;">Home</a>
+                <a href="#about" onclick="showSection('welcome'); toggleMobileMenu(); return false;">About</a>
+                <a href="#doctors" onclick="showSection('welcome'); toggleMobileMenu(); return false;">Doctors</a>
+                <a href="#" onclick="showSection('location'); toggleMobileMenu(); return false;">Register Now</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="search-icon-btn" onclick="openAdmin()" title="Search / Admin Panel" aria-label="Search">
+                    🔍
+                </button>
+                <button class="signin-btn" onclick="openAdmin()">Sign In</button>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
     <!-- Custom Campaign Notice Modal -->
-<div id="campaign-modal" class="modal-overlay">
-    <div class="modal-box">
-        <div class="modal-header">
-            <span class="modal-logo-text">G2 <span class="highlight">HEALTH</span></span>
-        </div>
-        <div class="modal-body">
-            <h3>NOTICE: OFFICIAL PROJECT PREVIEW</h3>
-            <p>Welcome to the 9C Boys G2 Health Campaign portal. This system is a simulated tech project for school presentation purposes.</p>
-            <p>Do you wish to proceed to the live interface?</p>
-        </div>
-        <div class="modal-footer">
-            <button id="close-modal" class="btn-primary">I UNDERSTAND</button>
+    <div id="campaign-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-logo-text">G2 <span class="highlight">HEALTH</span></span>
+            </div>
+            <div class="modal-body">
+                <h3>NOTICE: OFFICIAL PROJECT PREVIEW</h3>
+                <p>Welcome to the 9C Boys G2 Health Campaign portal. This system is a simulated tech project for school presentation purposes.</p>
+                <p>Do you wish to proceed to the live interface?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="close-modal" class="btn-primary">I UNDERSTAND</button>
+            </div>
         </div>
     </div>
-</div>
+
     <div class="watermark">@9C Boys G2</div>
 
     <div class="container">
@@ -52,7 +208,7 @@
 
                 <h1>9C Boys G2<br>Health Campaign</h1>
                 <p class="subtitle">Your health is our priority.<br>Free check-ups • Expert doctors • Instant guidance</p>
-                <p class="branding">Design & Concept Powered exclusively by <strong>@9C Boys G2</strong></p>
+                <p class="branding" id="about">Design & Concept Powered exclusively by <strong>@9C Boys G2</strong></p>
 
                 <section class="doctors-panel" aria-labelledby="senior-doctor-title">
                     <h2 id="senior-doctor-title">Senior &amp; Advising Doctor</h2>
@@ -62,7 +218,7 @@
                     </div>
                 </section>
 
-                <section class="doctors-panel" aria-labelledby="participating-doctors-title">
+                <section class="doctors-panel" id="doctors" aria-labelledby="participating-doctors-title">
                     <h2 id="participating-doctors-title">Participating Doctors</h2>
                     <p class="doctors-intro">Meet the medical professionals supporting this health campaign</p>
                     <div class="doctors-list">
@@ -71,7 +227,7 @@
                         <div class="doctor-card"><strong>Dr. Arnav Sharma</strong><span>Orthopedic Specialist</span></div>
                         <div class="doctor-card"><strong>Dr. Arnav Chhetri</strong><span>Dietologist</span></div>
                         <div class="doctor-card"><strong>Dr. Ayush Dehury</strong><span>Dermatologist</span></div>
-                        <div class="doctor-card"><strong>Dr. Harshit</strong><span>Cardiologist</span></div>
+                        <div class="doctor-card"><strong>Dr. Harshit Singh</strong><span>Cardiologist</span></div>
                     </div>
                 </section>
                 
@@ -197,13 +353,13 @@
                     <div class="step active">4. Token</div>
                 </div>
 
-                <div class="result-box" id="resultBox">
+                <div class="result-box" id="resultBox" style="display:none;">
                     <h2>Registration Successful!</h2>
                     <p>Dear <strong id="displayName"></strong>,</p>
                     <p style="margin-top:8px;">Your unique Token is:</p>
                     <div class="token" id="tokenDisplay"></div>
                     
-                    <div class="doctor-info">
+                    <div class="doctor-info" style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 10px; margin-top: 14px; text-align: left; font-size: 0.9rem;">
                         <p><strong>Selected Location:</strong> <span id="displayLocation"></span></p>
                         <p id="displayTimeSlot" style="margin-top: 6px;"></p>
                         <p id="counterInfo" style="margin-top: 6px;"></p>
@@ -246,6 +402,12 @@
         </div>
     </div>
 
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+        }
+    </script>
     <script src="js/app.js"></script>
     <script src="js/music.js"></script>
 </body>
